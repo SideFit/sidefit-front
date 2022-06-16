@@ -18,7 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint './src/**/*.{js,jsx}'"
+    "lint": "eslint './src/**/*.{js,jsx}'",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -28,21 +29,24 @@
     ],
     "rules": {
       "react/prefer-stateless-function": 0,
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-filename-extension": [
+        0,
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
       "react/jsx-one-expression-per-line": 0
-    }
-  },
-  "husky": {
-    "hooks": {
-        "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "*.{js,jsx}": [
-        "eslint --fix",
-        "prettier --write",
-        "git add"
-    ]
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.js": "eslint --cache --fix"
   },
   "browserslist": {
     "production": [
