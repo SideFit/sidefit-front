@@ -4,6 +4,7 @@ import GlobalStyle from './styles/GlobalStyle';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Profile />} />
+        <Route path='/home' element={<Home />} />
       </Routes>
       <Footer />
     </BrowserRouter>
