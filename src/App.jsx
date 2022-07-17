@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import FindTeamMember from './pages/FindTeamMember';
 import Home from './pages/Home';
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='FindTeamMember' element={<FindTeamMember />} />
+        <Route path='/findTeamMember' element={<FindTeamMember />} />
+        <Route path='/chat' element={<Chat />} />
       </Routes>
       <Footer />
     </BrowserRouter>
