@@ -14,32 +14,33 @@ const MyTopProfile = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-left: -13px;
 `;
 
 const ProfileImage = styled.img.attrs({
   src: `${Profile}`,
-  alt: 'headerLogo',
 })`
   width: 148px;
   height: 148px;
   border-radius: 65px;
   margin-bottom: 90px;
   margin-left: 75px;
+  margin-right: 6px;
 `;
 
 const ProfileContext = styled.div`
-  width: 900px;
+  width: 1050px;
   height: 230px;
   margin-left: 56px;
   margin-bottom: 10px;
   flex-direction: column;
 `;
 
-const MannersTemperature = styled.div`
-  width: 150px;
-  height: 230px;
-  background-color: grey;
-`;
+// const MannersTemperature = styled.div`
+//   width: 150px;
+//   height: 230px;
+//   background-color: grey;
+// `;
 
 const ButtonBox = styled.div`
   width: 100%;
@@ -119,7 +120,6 @@ function TopProfile() {
           <MeetingInvite />
         </ButtonBox>
       </ProfileContext>
-      <MannersTemperature />
     </MyTopProfile>
   );
 }
