@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
+import { FaBell } from 'react-icons/fa';
 import headerLogo from '../images/headerLogo.png';
+import HeaderProfileDropdown from './HeaderProfileDropdown';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -91,7 +93,58 @@ const LoginButton = styled.button`
   background: black;
 `;
 
+const AfterLoginHeaderAside = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100px;
+  margin-right: 35px;
+`;
+
+const BellNotification = styled.div`
+  width: 4px;
+  height: 4px;
+  background: #00c4b4;
+  border-radius: 50%;
+  transform: translate(-17px, -8px);
+`;
+
+const UserAvatar = styled.div`
+  width: 32px;
+  height: 32px;
+  background: #00c4b4;
+  border-radius: 50%;
+  cursor: pointer;
+`;
+
 function Header() {
+  const [login, setLogin] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  const modalEl = useRef();
+
+  const handleClickOutside = ({ target }) => {
+    if (visible && !modalEl.current.contains(target)) setVisible(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleVisible = () => {
+    setVisible(!visible);
+  };
+
+  const isLogin = () => {
+    setLogin(true);
+  };
+
+  const isLogout = () => {
+    setLogin(false);
+  };
   return (
     <HeaderContainer>
       <HeaderNavigation>
@@ -103,13 +156,28 @@ function Header() {
           <HeaderItem>팀원모집하기</HeaderItem>
         </HeaderLists>
       </HeaderNavigation>
-      <HeaderAside>
-        <HeaderSearchBarContainer>
-          <FiSearch size={20} />
-          <HeaderSearchBar />
-        </HeaderSearchBarContainer>
-        <LoginButton>로그인</LoginButton>
-      </HeaderAside>
+      {login ? (
+        <AfterLoginHeaderAside>
+          <FaBell size={20} color='grey' style={{ cursor: 'pointer' }} />
+          <BellNotification />
+          <UserAvatar
+            onClick={() => {
+              handleVisible();
+            }}
+          />
+          {visible && (
+            <HeaderProfileDropdown ref={modalEl} isLogout={isLogout} />
+          )}
+        </AfterLoginHeaderAside>
+      ) : (
+        <HeaderAside>
+          <HeaderSearchBarContainer>
+            <FiSearch size={20} />
+            <HeaderSearchBar />
+          </HeaderSearchBarContainer>
+          <LoginButton onClick={isLogin}>로그인</LoginButton>
+        </HeaderAside>
+      )}
     </HeaderContainer>
   );
 }
