@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FaLink } from 'react-icons/fa';
 import { BsPeople } from 'react-icons/bs';
 import ProjectCard from './ProjectCard';
-import Profile from '../images/Profile.png';
+import Profile from '../images/profile.png';
 
 const MyBottomProfile = styled.div`
   width: 100%;
