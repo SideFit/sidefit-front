@@ -4,6 +4,7 @@ import ChatButton from '../elements/ChatButton';
 import MeetingInvite from '../elements/MeetingInvite';
 import Profile from '../images/profile.png';
 
+
 const MyTopProfile = styled.div`
   width: 100%;
   height: 372px;
