@@ -7,6 +7,7 @@ import FindTeamMember from './pages/FindTeamMember';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Chat from './pages/Chat';
+import ProjectPage from './pages/ProjectPage';
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path='/Profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile />} />
         <Route path='/' element={<Home />} />
         <Route path='/findTeamMember' element={<FindTeamMember />} />
         <Route path='/chat' element={<Chat />} />
+        <Route path='/project' element={<ProjectPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
