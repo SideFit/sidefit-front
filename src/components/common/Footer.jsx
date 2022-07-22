@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import footerLogo from '../images/footerLogo.png';
+import footerLogo from '../../images/footerLogo.png';
 
 const FooterContainer = styled.footer`
   border-top: 1px solid #fff;
+  background-color: #121a26;
   display: flex;
   justify-content: center;
   align-items: center;

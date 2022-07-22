@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import FilteringDropdown from '../elements/FilteringDropdown';
+import FilteringDropdown from './FilteringDropdown';
 import ProjectCard from './ProjectCard';
 
 const ProjectListsSectionContainer = styled.section`

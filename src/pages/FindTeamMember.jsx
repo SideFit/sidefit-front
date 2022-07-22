@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import SubFilteringSection from '../components/SubFilteringSection';
-import FindTeamMemberListsSection from '../components/FindTeamMemberListsSection';
+import SubFilteringSection from '../components/findTeamMember/SubFilteringSection';
+import FindTeamMemberListsSection from '../components/findTeamMember/FindTeamMemberListsSection';
 
 const HomeContainer = styled.div`
   display: flex;

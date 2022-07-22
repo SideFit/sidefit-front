@@ -2,8 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaLink } from 'react-icons/fa';
 import { BsPeople } from 'react-icons/bs';
+<<<<<<< HEAD:src/components/BottomProfile.jsx
 import ProjectCard from './ProjectCard';
-import Profile from '../images/Profile.png';
+import Profile from '../images/profile.png';
+import InformationBox from '../elements/InformationBox';
+=======
+import ProjectCard from '../home/ProjectCard';
+import profile from '../../images/profile.png';
+>>>>>>> main:src/components/profile/BottomProfile.jsx
 
 const MyBottomProfile = styled.div`
   width: 100%;
@@ -46,23 +52,6 @@ const InformationTitle = styled.div`
   display: flex;
   align-items: center;
   margin-right: 111px;
-`;
-
-const InformationBox = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 4px 16px;
-  margin-right: 8px;
-  width: auto;
-  height: 36px;
-  font-size: 12px;
-  display: flex;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    #1f2b3c;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
 `;
 
 const LinkBox = styled.div`
@@ -193,17 +182,8 @@ const MannerDate = styled.div`
   align-items: flex-end;
 `;
 
-// const TodayTime = () => {
-//   const now = new Date();
-//   const TodayYear = now.getFullYear();
-//   const TodayMonth = now.getMonth() + 1;
-//   const TodayDate = now.getDate();
-
-//   return `${TodayYear}.${TodayMonth}.${TodayDate}`;
-// };
-
 const ProfileImage = styled.img.attrs({
-  src: `${Profile}`,
+  src: `${profile}`,
 })`
   width: 27.53px;
   height: 27.53px;
@@ -218,24 +198,24 @@ function BottomProfile() {
         <Information>추가 정보</Information>
         <CurrentStatus>
           <InformationTitle>현재상태</InformationTitle>
-          <InformationBox>프로젝트 찾는 중</InformationBox>
-          <InformationBox>구직 중</InformationBox>
-          <InformationBox>포트폴리오 제작 중</InformationBox>
+          <InformationBox name='프로젝트 찾는 중' />
+          <InformationBox name='구직 중' />
+          <InformationBox name='포트폴리오 제작 중' />
         </CurrentStatus>
         <CurrentStatus>
           <InformationTitle>MBTI</InformationTitle>
-          <InformationBox>ENTP</InformationBox>
+          <InformationBox name='ENTP' />
         </CurrentStatus>
         <CurrentStatus>
           <InformationTitle>관심분야</InformationTitle>
-          <InformationBox>금융</InformationBox>
-          <InformationBox>여행</InformationBox>
+          <InformationBox name='금융' />
+          <InformationBox name='여행' />
         </CurrentStatus>
         <CurrentStatus>
           <InformationTitle>기술스택</InformationTitle>
-          <InformationBox>Java</InformationBox>
-          <InformationBox>Spring</InformationBox>
-          <InformationBox>React</InformationBox>
+          <InformationBox name='Jaba' />
+          <InformationBox name='Spring' />
+          <InformationBox name='React' />
         </CurrentStatus>
         <CurrentStatus>
           <InformationTitle>URL</InformationTitle>
