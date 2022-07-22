@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+<<<<<<< HEAD:src/components/TopProfile.jsx
+import ChatButton from '../elements/ChatButton';
+import MeetingInvite from '../elements/MeetingInvite';
+import Profile from '../images/profile.png';
+
+=======
 import ChatButton from './ChatButton';
 import MeetingInvite from '../../elements/profile/MeetingInvite';
 import profile from '../../images/profile.png';
+>>>>>>> main:src/components/profile/TopProfile.jsx
 
 const MyTopProfile = styled.div`
   width: 100%;
