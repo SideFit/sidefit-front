@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import BottomProfile from '../components/BottomProfile';
-import TopProfile from '../components/TopProfile';
+import BottomProfile from '../components/profile/BottomProfile';
+import TopProfile from '../components/profile/TopProfile';
 
 const Wrapper = styled.div`
   width: 100%;
