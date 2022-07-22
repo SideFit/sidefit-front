@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { FaBell } from 'react-icons/fa';
-import headerLogo from '../images/headerLogo.png';
+import headerLogo from '../../images/headerLogo.png';
 import HeaderProfileDropdown from './HeaderProfileDropdown';
+import ProjectApplyInformDropdown from './ProjectApplyInformDropdown';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -120,19 +121,11 @@ const UserAvatar = styled.div`
 function Header() {
   const [login, setLogin] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [viewInform, setViewInform] = useState(false);
 
-  const modalEl = useRef();
-
-  const handleClickOutside = ({ target }) => {
-    if (visible && !modalEl.current.contains(target)) setVisible(false);
+  const handleViewInform = () => {
+    setViewInform(!viewInform);
   };
-
-  useEffect(() => {
-    window.addEventListener('click', handleClickOutside);
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
 
   const handleVisible = () => {
     setVisible(!visible);
@@ -144,6 +137,8 @@ function Header() {
 
   const isLogout = () => {
     setLogin(false);
+    setVisible(false);
+    setViewInform(false);
   };
   return (
     <HeaderContainer>
@@ -158,15 +153,27 @@ function Header() {
       </HeaderNavigation>
       {login ? (
         <AfterLoginHeaderAside>
-          <FaBell size={20} color='grey' style={{ cursor: 'pointer' }} />
+          <FaBell
+            size={20}
+            color='grey'
+            style={{ cursor: 'pointer' }}
+            onClick={handleViewInform}
+          />
           <BellNotification />
+          {viewInform && (
+            <ProjectApplyInformDropdown setViewInform={setViewInform} />
+          )}
           <UserAvatar
             onClick={() => {
               handleVisible();
             }}
           />
           {visible && (
-            <HeaderProfileDropdown ref={modalEl} isLogout={isLogout} />
+            <HeaderProfileDropdown
+              visible={visible}
+              setVisible={setVisible}
+              isLogout={isLogout}
+            />
           )}
         </AfterLoginHeaderAside>
       ) : (

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { FaUserCircle } from 'react-icons/fa';
 import { RiBookMarkLine } from 'react-icons/ri';
 import { TbLogout } from 'react-icons/tb';
 import PropTypes from 'prop-types';
+import useOutsideClick from '../../hooks/useOutsideClick';
 
 const HeaderProfileDropdownBox = styled.div`
   width: 196px;
@@ -25,9 +26,9 @@ const HeaderProfileDropdownWrapper = styled.div`
 `;
 
 const DropdownItem = styled.div`
+  display: flex;
   width: 180px;
   height: 44px;
-  display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: 500;
@@ -42,9 +43,15 @@ const DropdownItem = styled.div`
   }
 `;
 
-function HeaderProfileDropdown({ isLogout }) {
+function HeaderProfileDropdown({ isLogout, setVisible }) {
+  const modalEl = useRef();
+
+  useOutsideClick(modalEl, () => {
+    setVisible(false);
+  });
+
   return (
-    <HeaderProfileDropdownBox>
+    <HeaderProfileDropdownBox ref={modalEl}>
       <HeaderProfileDropdownWrapper>
         <DropdownItem>
           <FaUserCircle style={{ width: '30px' }} />
@@ -65,6 +72,7 @@ function HeaderProfileDropdown({ isLogout }) {
 
 HeaderProfileDropdown.propTypes = {
   isLogout: PropTypes.func.isRequired,
+  setVisible: PropTypes.func.isRequired,
 };
 
 export default HeaderProfileDropdown;

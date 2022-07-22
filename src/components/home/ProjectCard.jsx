@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RiBookmarkLine, RiBookmarkFill } from 'react-icons/ri';
-import PortfolioIcon from '../elements/PortfolioIcon';
-import NewIcon from '../elements/NewIcon';
+import PortfolioIcon from '../../elements/home/PortfolioIcon';
+import NewIcon from '../../elements/home/NewIcon';
 
 const ProjectCardContainer = styled.div`
   width: 273px;
