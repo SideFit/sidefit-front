@@ -2,9 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaLink } from 'react-icons/fa';
 import { BsPeople } from 'react-icons/bs';
+<<<<<<< HEAD:src/components/BottomProfile.jsx
 import ProjectCard from './ProjectCard';
 import Profile from '../images/profile.png';
 import InformationBox from '../elements/InformationBox';
+=======
+import ProjectCard from '../home/ProjectCard';
+import profile from '../../images/profile.png';
+>>>>>>> main:src/components/profile/BottomProfile.jsx
 
 const MyBottomProfile = styled.div`
   width: 100%;
@@ -178,7 +183,7 @@ const MannerDate = styled.div`
 `;
 
 const ProfileImage = styled.img.attrs({
-  src: `${Profile}`,
+  src: `${profile}`,
 })`
   width: 27.53px;
   height: 27.53px;

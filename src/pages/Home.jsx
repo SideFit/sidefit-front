@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import MainFilteringSection from '../components/MainFilteringSection';
-import MainTop from '../components/MainTop';
-import ProjectListsSection from '../components/ProjectListsSection';
+import MainFilteringSection from '../components/home/MainFilteringSection';
+import MainTop from '../components/home/MainTop';
+import ProjectListsSection from '../components/home/ProjectListsSection';
 
 const HomeContainer = styled.div`
   display: flex;

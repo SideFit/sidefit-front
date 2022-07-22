@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import FilteringDropdown from '../elements/FilteringDropdown';
+import FilteringDropdown from '../home/FilteringDropdown';
 import FindTeamMemberCard from './FindTeamMemberCard';
 
 const MemberListsSectionContainer = styled.section`
