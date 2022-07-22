@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ChatButton from '../elements/ChatButton';
-import MeetingInvite from '../elements/MeetingInvite';
-import Profile from '../images/Profile.png';
+import ChatButton from './ChatButton';
+import MeetingInvite from '../../elements/profile/MeetingInvite';
+import profile from '../../images/profile.png';
 
 const MyTopProfile = styled.div`
   width: 100%;
@@ -18,7 +18,7 @@ const MyTopProfile = styled.div`
 `;
 
 const ProfileImage = styled.img.attrs({
-  src: `${Profile}`,
+  src: `${profile}`,
 })`
   width: 148px;
   height: 148px;

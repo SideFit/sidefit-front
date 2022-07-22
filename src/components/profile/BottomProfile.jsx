@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaLink } from 'react-icons/fa';
 import { BsPeople } from 'react-icons/bs';
-import ProjectCard from './ProjectCard';
-import Profile from '../images/Profile.png';
+import ProjectCard from '../home/ProjectCard';
+import profile from '../../images/profile.png';
 
 const MyBottomProfile = styled.div`
   width: 100%;
@@ -203,7 +203,7 @@ const MannerDate = styled.div`
 // };
 
 const ProfileImage = styled.img.attrs({
-  src: `${Profile}`,
+  src: `${profile}`,
 })`
   width: 27.53px;
   height: 27.53px;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SubFilteringButton from '../elements/SubFilteringButton';
+import SubFilteringButton from '../../elements/findTeamMember/SubFilteringButton';
 
 const SubFilteringSectionContainer = styled.section`
   display: flex;

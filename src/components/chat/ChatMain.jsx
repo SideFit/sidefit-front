@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BsArrowUpCircleFill } from 'react-icons/bs';
 import ChatMainTopBanner from './ChatMainTopBanner';
-import messageProfileImage from '../images/messageProfileImage.png';
+import messageProfileImage from '../../images/messageProfileImage.png';
 
 const ChatMainContainer = styled.section`
   width: 100%;

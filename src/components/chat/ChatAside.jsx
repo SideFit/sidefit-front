@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ChatAsideItem from '../elements/ChatAsideItem';
+import ChatAsideItem from '../../elements/chat/ChatAsideItem';
 
 const ChatAsideContainer = styled.aside`
   width: 376px;
