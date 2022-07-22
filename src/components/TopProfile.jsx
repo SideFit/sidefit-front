@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ChatButton from '../elements/ChatButton';
 import MeetingInvite from '../elements/MeetingInvite';
-import Profile from '../images/Profile.png';
+import Profile from '../images/profile.png';
+
 
 const MyTopProfile = styled.div`
   width: 100%;
