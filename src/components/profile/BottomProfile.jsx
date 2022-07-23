@@ -2,14 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaLink } from 'react-icons/fa';
 import { BsPeople } from 'react-icons/bs';
-<<<<<<< HEAD:src/components/BottomProfile.jsx
-import ProjectCard from './ProjectCard';
-import Profile from '../images/profile.png';
-import InformationBox from '../elements/InformationBox';
-=======
 import ProjectCard from '../home/ProjectCard';
 import profile from '../../images/profile.png';
->>>>>>> main:src/components/profile/BottomProfile.jsx
+import InformationBox from '../../elements/profile/InformationBox';
 
 const MyBottomProfile = styled.div`
   width: 100%;
@@ -167,8 +162,8 @@ const MannerContent = styled.div`
   padding: 24px 15px;
   line-height: 20px;
   letter-spacing: 0.4px;
-  width: 234px;
-  height: 110px;
+  width: 273px;
+  height: 140px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     #1f2b3c;
   border-radius: 8px;

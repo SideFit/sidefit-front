@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import Chat from './pages/Chat';
 import ProjectPage from './pages/ProjectPage';
 import Footer from './components/common/Footer';
+import ProfileChange from './pages/ProfileChange';
 
 function App() {
   return (
@@ -15,12 +16,12 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path='/profile' element={<Profile />} />
         <Route path='/' element={<Home />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/findTeamMember' element={<FindTeamMember />} />
         <Route path='/chat' element={<Chat />} />
         <Route path='/project' element={<ProjectPage />} />
+        <Route path='/profileChange' element={<ProfileChange />} />
       </Routes>
       <Footer />
     </BrowserRouter>

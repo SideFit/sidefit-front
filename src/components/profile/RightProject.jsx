@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import RightBoxButton from '../elements/RightBoxButton';
-import RightBoxContents from '../elements/RightBoxContents';
+import RightBoxButton from '../../elements/profile/RightBoxButton';
+import RightBoxContents from '../../elements/profile/RightBoxContents';
 
 const HomeContainer = styled.div`
   display: flex;
