@@ -108,18 +108,24 @@ const MyMessageContent = styled.div`
   padding: 0 14px;
 `;
 
-const LastChat = styled.button`
+const LastChat = styled.div`
   width: 891px;
   height: 64px;
   border-radius: 24px;
   border: none;
   text-align: left;
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   p {
-    width: 850px;
-    height: 55px;
-    line-height: 25px;
-    padding: 20px;
+    width: 811px;
+    height: 48px;
+    line-height: 24px;
     font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.15px;
   }
 `;
 function ChatMain() {
