@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import InformationBox from '../../elements/InformationBox';
+import InformationBox from '../../elements/profile/InformationBox';
 import ProjectCard from '../home/ProjectCard';
 import team1 from '../../images/team1.png';
 
@@ -13,7 +13,7 @@ const HomeContainer = styled.div`
 const ContentsTitle = styled.div`
   width: auto;
   font-weight: 600;
-  font-size: 22.9px;
+  font-size: 24px;
   line-height: 32px;
   margin-bottom: 16px;
 `;
