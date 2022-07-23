@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import LeftProject from '../components/LeftProject';
-import RightProject from '../components/RightProject';
+import LeftProject from '../components/profile/LeftProject';
+import RightProject from '../components/profile/RightProject';
 
 const HomeCantiner = styled.div`
   width: 100%;

@@ -15,7 +15,6 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path='/profile' element={<Profile />} />
         <Route path='/' element={<Home />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/findTeamMember' element={<FindTeamMember />} />

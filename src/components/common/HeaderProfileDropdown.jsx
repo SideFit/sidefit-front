@@ -43,7 +43,7 @@ const DropdownItem = styled.div`
   }
 `;
 
-function HeaderProfileDropdown({ isLogout, setVisible }) {
+function HeaderProfileDropdown({ setVisible, openLogoutModal }) {
   const modalEl = useRef();
 
   useOutsideClick(modalEl, () => {
@@ -61,7 +61,7 @@ function HeaderProfileDropdown({ isLogout, setVisible }) {
           <RiBookMarkLine style={{ width: '30px' }} />
           <p>북마크</p>
         </DropdownItem>
-        <DropdownItem onClick={isLogout}>
+        <DropdownItem onClick={openLogoutModal}>
           <TbLogout style={{ width: '30px' }} />
           <p>로그아웃</p>
         </DropdownItem>
@@ -71,8 +71,8 @@ function HeaderProfileDropdown({ isLogout, setVisible }) {
 }
 
 HeaderProfileDropdown.propTypes = {
-  isLogout: PropTypes.func.isRequired,
   setVisible: PropTypes.func.isRequired,
+  openLogoutModal: PropTypes.func.isRequired,
 };
 
 export default HeaderProfileDropdown;

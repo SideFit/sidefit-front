@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import project from '../images/project.png';
+import project from '../../images/project.png';
 import LeftContents from './LeftContents';
 
 const HomeContainer = styled.div`

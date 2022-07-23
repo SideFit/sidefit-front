@@ -5,6 +5,9 @@ import { FaBell } from 'react-icons/fa';
 import headerLogo from '../../images/headerLogo.png';
 import HeaderProfileDropdown from './HeaderProfileDropdown';
 import ProjectApplyInformDropdown from './ProjectApplyInformDropdown';
+import ModalPortal from '../loginAndSignup/ModalPortals';
+import ModalContainer from '../loginAndSignup/LoginSignupModalContainer';
+import LogoutModalContainer from '../loginAndSignup/LogoutModalContainer';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -122,6 +125,28 @@ function Header() {
   const [login, setLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   const [viewInform, setViewInform] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const openLogoutModal = () => {
+    setShowConfirmModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLogoutModal = () => {
+    setShowConfirmModal(false);
+    document.body.style.overflow = 'unset';
+  };
 
   const handleViewInform = () => {
     setViewInform(!viewInform);
@@ -148,7 +173,13 @@ function Header() {
           <HeaderItem>프로젝트</HeaderItem>
           <HeaderItem>팀원찾기</HeaderItem>
           <HeaderItem>채팅</HeaderItem>
-          <HeaderItem>팀원모집하기</HeaderItem>
+          <HeaderItem
+            onClick={() => {
+              isLogin();
+            }}
+          >
+            팀원모집하기
+          </HeaderItem>
         </HeaderLists>
       </HeaderNavigation>
       {login ? (
@@ -173,6 +204,7 @@ function Header() {
               visible={visible}
               setVisible={setVisible}
               isLogout={isLogout}
+              openLogoutModal={openLogoutModal}
             />
           )}
         </AfterLoginHeaderAside>
@@ -182,8 +214,25 @@ function Header() {
             <FiSearch size={20} />
             <HeaderSearchBar />
           </HeaderSearchBarContainer>
-          <LoginButton onClick={isLogin}>로그인</LoginButton>
+          <LoginButton onClick={openModal}>로그인</LoginButton>
         </HeaderAside>
+      )}
+      {modalOpen && (
+        <ModalPortal>
+          <ModalContainer
+            close={closeModal}
+            setLogin={setLogin}
+            setModalOpen={setModalOpen}
+          />
+        </ModalPortal>
+      )}
+      {showConfirmModal && (
+        <ModalPortal>
+          <LogoutModalContainer
+            isLogout={isLogout}
+            closeLogoutModal={closeLogoutModal}
+          />
+        </ModalPortal>
       )}
     </HeaderContainer>
   );
