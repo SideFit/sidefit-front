@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import FilteringButton from '../elements/FilteringButton';
-import SelectedButton from '../elements/SelectedButton';
+import FilteringButton from './FilteringButton';
+import SelectedButton from '../../elements/home/SelectedButton';
 
 const MainFilteringSectionContainer = styled.section`
   display: flex;

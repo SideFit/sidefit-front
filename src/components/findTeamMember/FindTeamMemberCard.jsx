@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RiBookmarkLine, RiBookmarkFill } from 'react-icons/ri';
 import { BsFillPersonFill } from 'react-icons/bs';
-import ConversationButton from '../elements/ConversationButton';
+import ConversationButton from './ConversationButton';
 
 const TeamMemberInformation = styled.div`
   display: flex;
