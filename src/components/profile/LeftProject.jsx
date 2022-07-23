@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import project from '../images/project.png';
 import LeftContents from './LeftContents';
+import project from '../../images/project.png';
 
 const HomeContainer = styled.div`
   width: 1200px;
@@ -31,8 +31,8 @@ const TitleBox = styled.div`
   width: 788px;
   height: 44px;
   font-weight: 700;
-  font-size: 34.9px;
   line-height: 44px;
+  font-size: 36px;
   margin-top: 40px;
   margin-bottom: 40px;
   display: flex;
