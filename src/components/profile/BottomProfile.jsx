@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaLink } from 'react-icons/fa';
 import { BsPeople } from 'react-icons/bs';
-import InformationBox from '../elements/profile/InformationBox';
+import InformationBox from '../../elements/InformationBox';
 import ProjectCard from '../home/ProjectCard';
 import profile from '../../images/profile.png';
 
