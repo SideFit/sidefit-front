@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import InformationBox from '../elements/InformationBox';
-import ProjectCard from './home/ProjectCard';
-import team1 from '../images/team1.png';
+import InformationBox from '../../elements/profile/InformationBox';
+import ProjectCard from '../home/ProjectCard';
+import team1 from '../../images/team1.png';
 
 const HomeContainer = styled.div`
   width: 1200px;

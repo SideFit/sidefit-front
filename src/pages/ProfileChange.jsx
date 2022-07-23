@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import BottomProfileChange from '../components/BottomProfileChange';
-import TopProfileChange from '../components/TopProfileChange';
+import BottomProfileChange from '../components/profile/BottomProfileChange';
+import TopProfileChange from '../components/profile/TopProfileChange';
 
 const HomeContainer = styled.div`
   width: 100%;

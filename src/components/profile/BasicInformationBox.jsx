@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import DutyDropdown from '../elements/DutyDropdown';
+import DutyDropdown from '../../elements/profile/DutyDropdown';
 
 const HomeContainer = styled.div`
   width: 1200px;

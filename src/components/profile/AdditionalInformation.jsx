@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import FieldOfInterestDropdown from '../elements/FieldOfInterestDropdown';
-import MBTIDropdown from '../elements/MBTIDropdown';
-import TechnologyStack from '../elements/TechnologyStack';
-import TechnologyButton from '../elements/TechnologyButton';
+import FieldOfInterestDropdown from '../../elements/profile/FieldOfInterestDropdown';
+import MBTIDropdown from '../../elements/profile/MBTIDropdown';
+import TechnologyStack from '../../elements/profile/TechnologyStack';
+import TechnologyButton from '../../elements/profile/TechnologyButton';
 
 const HomeContainer = styled.div`
   width: 1200px;
