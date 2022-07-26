@@ -39,7 +39,7 @@ const Background = styled.div`
 `;
 
 const ModalBlock = styled.div`
-  position: absolute;
+  position: fixed;
   width: 550px;
   height: fit-content;
   overflow-x: hidden;
@@ -70,7 +70,7 @@ const Contents = styled.div`
   transition: all linear 0.1s;
 `;
 
-function ModalContainer({ close, setLogin, setModalOpen }) {
+function ModalContainer({ close, isLogin }) {
   const [modalIndex, setModalIndex] = useState(0);
   return (
     <Container>
@@ -80,11 +80,7 @@ function ModalContainer({ close, setLogin, setModalOpen }) {
           <LoginModal setModalIndex={setModalIndex} close={close} />
           <SignupModal setModalIndex={setModalIndex} close={close} />
           <SignupSecondModal setModalIndex={setModalIndex} close={close} />
-          <SignupCompleteModal
-            close={close}
-            setLogin={setLogin}
-            setModalOpen={setModalOpen}
-          />
+          <SignupCompleteModal close={close} isLogin={isLogin} />
         </Contents>
       </ModalBlock>
     </Container>
@@ -93,8 +89,7 @@ function ModalContainer({ close, setLogin, setModalOpen }) {
 
 ModalContainer.propTypes = {
   close: PropTypes.func.isRequired,
-  setLogin: PropTypes.func.isRequired,
-  setModalOpen: PropTypes.func.isRequired,
+  isLogin: PropTypes.func.isRequired,
 };
 
 export default ModalContainer;

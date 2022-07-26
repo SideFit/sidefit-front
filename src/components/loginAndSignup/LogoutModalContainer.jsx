@@ -36,7 +36,7 @@ const Background = styled.div`
 `;
 
 const ModalBlock = styled.div`
-  position: absolute;
+  position: fixed;
   width: 550px;
   height: fit-content;
   overflow-x: hidden;

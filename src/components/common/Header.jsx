@@ -158,6 +158,8 @@ function Header() {
 
   const isLogin = () => {
     setLogin(true);
+    setModalOpen(false);
+    document.body.style.overflow = 'unset';
   };
 
   const isLogout = () => {
@@ -173,13 +175,7 @@ function Header() {
           <HeaderItem>프로젝트</HeaderItem>
           <HeaderItem>팀원찾기</HeaderItem>
           <HeaderItem>채팅</HeaderItem>
-          <HeaderItem
-            onClick={() => {
-              isLogin();
-            }}
-          >
-            팀원모집하기
-          </HeaderItem>
+          <HeaderItem>팀원모집하기</HeaderItem>
         </HeaderLists>
       </HeaderNavigation>
       {login ? (
@@ -219,11 +215,7 @@ function Header() {
       )}
       {modalOpen && (
         <ModalPortal>
-          <ModalContainer
-            close={closeModal}
-            setLogin={setLogin}
-            setModalOpen={setModalOpen}
-          />
+          <ModalContainer close={closeModal} isLogin={isLogin} />
         </ModalPortal>
       )}
       {showConfirmModal && (
