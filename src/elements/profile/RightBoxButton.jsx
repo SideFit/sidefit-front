@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ApplyContainer from '../../components/Apply.jsx/ApplyContainer';
+import ApplyContainer from '../../components/apply/ApplyContainer';
 import ModalPortal from '../../components/loginAndSignup/ModalPortals';
 
 const HomeContainer = styled.div`
