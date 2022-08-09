@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import RightBoxButton from '../../elements/profile/RightBoxButton';
-import RightBoxContents from '../../elements/profile/RightBoxContents';
+import RightBoxButton from '../../elements/projectPage/RightBoxButton';
+import RightBoxContents from '../../elements/projectPage/RightBoxContents';
 
 const HomeContainer = styled.div`
   display: flex;
@@ -9,8 +9,8 @@ const HomeContainer = styled.div`
   position: absolute;
   width: 376px;
   margin-top: 124px;
+  margin-left: 822px;
   height: 356px;
-  left: 1176px;
   justify-content: center;
   align-items: center;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),

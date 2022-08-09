@@ -7,12 +7,12 @@ const DutyDropdownBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: end;
+  margin: -5px 0px 0px 128px;
   &:hover {
     cursor: pointer;
   }
   z-index: 4;
   position: relative;
-  margin-top: 293px;
 `;
 
 const SelectedBox = styled.div`
@@ -21,7 +21,6 @@ const SelectedBox = styled.div`
   display: flex;
   align-items: center;
   border-radius: 5px;
-  margin-left: 157px;
   color: rgba(255, 255, 255, 0.6);
 `;
 
@@ -40,15 +39,9 @@ const Line = styled.div`
 `;
 
 const DropdownItemBox = styled.ul`
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.16)
-    ),
-    #121212;
+  background: #121a26;
   width: 378px;
   border-radius: 5px;
-  border: 1px solid grey;
   margin-top: 5px;
   position: absolute;
   top: 35px;
@@ -62,7 +55,8 @@ const DropdownItem = styled.li`
   height: 32px;
   padding-left: 15px;
   &:hover {
-    background: #384860;
+    background: #448aff;
+    color: white;
   }
 `;
 

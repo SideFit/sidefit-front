@@ -6,15 +6,14 @@ const MBTIDropdownBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: -8px;
+  margin-bottom: 68px;
   align-items: end;
   &:hover {
     cursor: pointer;
   }
   z-index: 6;
-  position: absolute;
-  top: 1521px;
-  left: 661px;
-  margin-bottom: 53px;
+  position: relative;
 `;
 
 const SelectedBox = styled.div`
@@ -22,8 +21,7 @@ const SelectedBox = styled.div`
   height: 36px;
   display: flex;
   align-items: center;
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.6);
+  color: white;
 `;
 
 const ArrowIcon = styled(RiArrowDownSLine)`
@@ -41,12 +39,7 @@ const Line = styled.div`
 `;
 
 const DropdownItemBox = styled.ul`
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.16)
-    ),
-    #121212;
+  background: #121a26;
   width: 378px;
   border-radius: 5px;
   border: 1px solid grey;
@@ -63,15 +56,34 @@ const DropdownItem = styled.li`
   height: 32px;
   padding-left: 15px;
   &:hover {
-    background: #384860;
+    background: #448aff;
+    color: white;
   }
 `;
 
 function MBTIDropdown() {
   const [toggle, setToggle] = useState(false);
-  const [selected, setSelected] = useState('INTP');
+  const [selected, setSelected] = useState('');
 
-  const FilterItems = ['INTP', 'ISTP', 'ESTP', 'ISTP', 'ENTJ', 'ESFJ'];
+  const FilterItems = [
+    'ISTJ',
+    'ISFJ',
+    'INFJ',
+    'INTJ',
+    'ISTP',
+    'ISFP',
+    'ISFP',
+    'INFP',
+    'INTP',
+    'ESTP',
+    'ESFP',
+    'ENFP',
+    'ENTP',
+    'ESTJ',
+    'ESFJ',
+    'ENFJ',
+    'ENTJ',
+  ];
 
   const handleToggle = () => {
     setToggle(!toggle);
