@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RiArrowDownSLine } from 'react-icons/ri';
 
-const FieldOfInterestDropdownBox = styled.div`
+const MBTIDropdownBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: -8px;
+  margin-bottom: 68px;
   align-items: end;
   &:hover {
     cursor: pointer;
   }
-  z-index: 5;
-  position: absolute;
-  top: 1606px;
-  left: 661px;
-  margin-bottom: 53px;
+  z-index: 6;
+  position: relative;
 `;
 
 const SelectedBox = styled.div`
@@ -22,8 +21,7 @@ const SelectedBox = styled.div`
   height: 36px;
   display: flex;
   align-items: center;
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.6);
+  color: white;
 `;
 
 const ArrowIcon = styled(RiArrowDownSLine)`
@@ -41,12 +39,7 @@ const Line = styled.div`
 `;
 
 const DropdownItemBox = styled.ul`
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.16)
-    ),
-    #121212;
+  background: #121a26;
   width: 378px;
   border-radius: 5px;
   border: 1px solid grey;
@@ -63,22 +56,41 @@ const DropdownItem = styled.li`
   height: 32px;
   padding-left: 15px;
   &:hover {
-    background: #384860;
+    background: #448aff;
+    color: white;
   }
 `;
 
-function FieldOfInterestDropdown() {
+function MBTIDropdown() {
   const [toggle, setToggle] = useState(false);
-  const [selected, setSelected] = useState('금융');
+  const [selected, setSelected] = useState('');
 
-  const FilterItems = ['금융', 'Java', 'Spring', 'Reaact', 'Vue'];
+  const FilterItems = [
+    'ISTJ',
+    'ISFJ',
+    'INFJ',
+    'INTJ',
+    'ISTP',
+    'ISFP',
+    'ISFP',
+    'INFP',
+    'INTP',
+    'ESTP',
+    'ESFP',
+    'ENFP',
+    'ENTP',
+    'ESTJ',
+    'ESFJ',
+    'ENFJ',
+    'ENTJ',
+  ];
 
   const handleToggle = () => {
     setToggle(!toggle);
   };
 
   return (
-    <FieldOfInterestDropdownBox>
+    <MBTIDropdownBox>
       <SelectedBox onClick={handleToggle}>
         {selected} <ArrowIcon />
       </SelectedBox>
@@ -98,8 +110,8 @@ function FieldOfInterestDropdown() {
           ))}
         </DropdownItemBox>
       )}
-    </FieldOfInterestDropdownBox>
+    </MBTIDropdownBox>
   );
 }
 
-export default FieldOfInterestDropdown;
+export default MBTIDropdown;

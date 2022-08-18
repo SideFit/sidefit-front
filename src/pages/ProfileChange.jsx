@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import BottomProfileChange from '../components/profile/BottomProfileChange';
-import TopProfileChange from '../components/profile/TopProfileChange';
+import BottomProfileChange from '../components/profileChange/BottomProfileChange';
+import { ButtonStoreProvider } from '../components/profileChange/ButtonStore';
+import TopProfileChange from '../components/profileChange/TopProfileChange';
 
 const HomeContainer = styled.div`
   width: 100%;
@@ -12,12 +13,27 @@ const HomeContainer = styled.div`
   flex-direction: column;
 `;
 
+const SaveBtn = styled.div`
+  width: 344px;
+  height: 53px;
+  margin-top: 64px;
+  background: #d12771;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
 function ProfileChange() {
   return (
-    <HomeContainer>
-      <TopProfileChange />
-      <BottomProfileChange />
-    </HomeContainer>
+    <ButtonStoreProvider>
+      <HomeContainer>
+        <TopProfileChange />
+        <BottomProfileChange />
+        <SaveBtn>저장하기</SaveBtn>
+      </HomeContainer>
+    </ButtonStoreProvider>
   );
 }
 

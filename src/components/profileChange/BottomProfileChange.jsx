@@ -4,14 +4,10 @@ import AdditionalInformation from './AdditionalInformation';
 
 const HomgContainer = styled.div`
   width: 1200px;
-  height: 843px;
-  margin-top: 146.81px;
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.16)
-    ),
-    #121212;
+  height: 1162px;
+  margin-top: 56px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    #1f2b3c;
   border-radius: 24px;
 `;
 

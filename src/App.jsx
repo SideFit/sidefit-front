@@ -9,6 +9,9 @@ import Chat from './pages/Chat';
 import ProjectPage from './pages/ProjectPage';
 import Footer from './components/common/Footer';
 import ProfileChange from './pages/ProfileChange';
+import TeamMemberFind from './pages/TeamMemberFind';
+import FindTwoContainer from './components/teamMemberFind/FindTwoContainer';
+import CompleteConatainer from './components/teamMemberFind/CompleteContainer';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
         <Route path='/chat' element={<Chat />} />
         <Route path='/project' element={<ProjectPage />} />
         <Route path='/profileChange' element={<ProfileChange />} />
+        <Route path='/teammemberfind' element={<TeamMemberFind />} />
+        <Route path='/teammemberfind/2' element={<FindTwoContainer />} />
+        <Route path='/teammemberfind/3' element={<CompleteConatainer />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />

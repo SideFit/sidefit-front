@@ -2,19 +2,16 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RiArrowDownSLine } from 'react-icons/ri';
 
-const MBTIDropdownBox = styled.div`
+const PeriodDropdownBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: end;
+  height: 85px;
   &:hover {
     cursor: pointer;
   }
   z-index: 6;
-  position: absolute;
-  top: 1521px;
-  left: 661px;
-  margin-bottom: 53px;
+  position: relative;
 `;
 
 const SelectedBox = styled.div`
@@ -22,6 +19,7 @@ const SelectedBox = styled.div`
   height: 36px;
   display: flex;
   align-items: center;
+  margin-top: -2px;
   border-radius: 5px;
   color: rgba(255, 255, 255, 0.6);
 `;
@@ -41,15 +39,10 @@ const Line = styled.div`
 `;
 
 const DropdownItemBox = styled.ul`
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.16)
-    ),
-    #121212;
+  background: #121a26;
   width: 378px;
   border-radius: 5px;
-  border: 1px solid grey;
+  border: none;
   margin-top: 5px;
   position: absolute;
   top: 35px;
@@ -63,22 +56,30 @@ const DropdownItem = styled.li`
   height: 32px;
   padding-left: 15px;
   &:hover {
-    background: #384860;
+    background: #448aff;
+    color: white;
   }
 `;
 
-function MBTIDropdown() {
+function PeriodDropdown() {
   const [toggle, setToggle] = useState(false);
-  const [selected, setSelected] = useState('INTP');
+  const [selected, setSelected] = useState('1주 프로젝트');
 
-  const FilterItems = ['INTP', 'ISTP', 'ESTP', 'ISTP', 'ENTJ', 'ESFJ'];
+  const FilterItems = [
+    { id: 1, value: '1주 프로젝트' },
+    { id: 2, value: '2주 프로젝트' },
+    { id: 3, value: '3주 프로젝트' },
+    { id: 4, value: '한달 프로젝트' },
+    { id: 5, value: '두달 프로젝트' },
+    { id: 6, value: '협의' },
+  ];
 
   const handleToggle = () => {
     setToggle(!toggle);
   };
 
   return (
-    <MBTIDropdownBox>
+    <PeriodDropdownBox>
       <SelectedBox onClick={handleToggle}>
         {selected} <ArrowIcon />
       </SelectedBox>
@@ -88,18 +89,18 @@ function MBTIDropdown() {
           {FilterItems.map(item => (
             <DropdownItem
               onClick={() => {
-                setSelected(item);
+                setSelected(item.value);
                 handleToggle();
               }}
-              key={item}
+              key={item.id}
             >
-              {item}
+              {item.value}
             </DropdownItem>
           ))}
         </DropdownItemBox>
       )}
-    </MBTIDropdownBox>
+    </PeriodDropdownBox>
   );
 }
 
-export default MBTIDropdown;
+export default PeriodDropdown;
