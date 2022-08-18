@@ -25,8 +25,7 @@ const Background = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.8);
   animation: modal-bg-show 1s;
   @keyframes modal-bg-show {
     from {
@@ -42,7 +41,7 @@ const ModalBlock = styled.div`
   position: fixed;
   width: 550px;
   height: fit-content;
-  overflow-x: hidden;
+  overflow-x: visible;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +66,7 @@ const Contents = styled.div`
   width: fit-content;
   height: fit-content;
   transform: translateX(${props => props.modalIndex * -550}px);
-  transition: all linear 0.1s;
+  transition: all linear 0.2s;
 `;
 
 function ModalContainer({ close, isLogin }) {

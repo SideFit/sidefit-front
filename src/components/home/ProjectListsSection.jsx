@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import FilteringDropdown from './FilteringDropdown';
 import ProjectCard from './ProjectCard';
+import { fetchProjectLists } from '../../redux/slices/projectSlice';
 
 const ProjectListsSectionContainer = styled.section`
   width: 100%;
@@ -36,27 +38,34 @@ const ProjectCardContainer = styled.article`
 `;
 
 function ProjectListsSection() {
+  const dispatch = useDispatch();
+  const selector = useSelector(state => state.project.projectLists);
+  useEffect(() => {
+    dispatch(fetchProjectLists());
+    return () => dispatch(fetchProjectLists());
+  }, []);
+  console.log(selector);
   return (
     <ProjectListsSectionContainer>
       <ProjectListsTop>
         <p>
-          총 <span>9개</span>의 사이드 프로젝트
+          총 <span>{selector?.length}개</span>의 사이드 프로젝트
         </p>
         <FilteringDropdown />
       </ProjectListsTop>
       <ProjectCardContainer>
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
+        {selector &&
+          selector.map(data => (
+            <ProjectCard
+              id={data.id}
+              type={data.type}
+              imageUrl={data.image_url}
+              title={data.title}
+              field={data.field}
+              hashtag={data.hashtag}
+              createdDate={data.created_date}
+            />
+          ))}
       </ProjectCardContainer>
     </ProjectListsSectionContainer>
   );

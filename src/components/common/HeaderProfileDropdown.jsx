@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaUserCircle } from 'react-icons/fa';
 import { RiBookMarkLine } from 'react-icons/ri';
@@ -46,6 +47,12 @@ const DropdownItem = styled.div`
 function HeaderProfileDropdown({ setVisible, openLogoutModal }) {
   const modalEl = useRef();
 
+  const navigate = useNavigate();
+
+  const moveToProfileChange = () => {
+    navigate('/profileChange');
+    setVisible(false);
+  };
   useOutsideClick(modalEl, () => {
     setVisible(false);
   });
@@ -53,7 +60,7 @@ function HeaderProfileDropdown({ setVisible, openLogoutModal }) {
   return (
     <HeaderProfileDropdownBox ref={modalEl}>
       <HeaderProfileDropdownWrapper>
-        <DropdownItem>
+        <DropdownItem onClick={moveToProfileChange}>
           <FaUserCircle style={{ width: '30px' }} />
           <p>내 프로필</p>
         </DropdownItem>

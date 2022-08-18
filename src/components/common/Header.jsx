@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { FaBell } from 'react-icons/fa';
@@ -8,6 +9,7 @@ import ProjectApplyInformDropdown from './ProjectApplyInformDropdown';
 import ModalPortal from '../loginAndSignup/ModalPortals';
 import ModalContainer from '../loginAndSignup/LoginSignupModalContainer';
 import LogoutModalContainer from '../loginAndSignup/LogoutModalContainer';
+import COLOR from '../../constants/color';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -19,12 +21,17 @@ const HeaderContainer = styled.header`
   align-items: center;
   position: fixed;
   z-index: 1000;
+  /* border: 1px solid green; */
 `;
 
 const HeaderNavigation = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  /* border: 1px solid pink; */
+  margin-left: 32px;
+  width: 500px;
+  height: fit-content;
 `;
 
 const HeaderAside = styled.div`
@@ -32,7 +39,8 @@ const HeaderAside = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 350px;
-  margin-right: 35px;
+  margin-right: 32px;
+  /* border: 1px solid orange; */
 `;
 
 const HeaderLogo = styled.img.attrs({
@@ -42,7 +50,7 @@ const HeaderLogo = styled.img.attrs({
   width: 95px;
   height: 18px;
   color: white;
-  margin: 0 25px;
+  /* margin: 0 25px; */
 `;
 
 const HeaderLists = styled.ul`
@@ -52,20 +60,28 @@ const HeaderLists = styled.ul`
   list-style: none;
   margin: auto;
   padding: 0;
+  /* border: 1px solid blue; */
+  height: fit-content;
 `;
 
 const HeaderItem = styled.li`
-  margin: 0 16px;
+  /* margin: 0 16px; */
+  margin-left: 32px;
   font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
   cursor: pointer;
-  width: 100px;
-  height: 30px;
+  /* border: 1px solid red; */
+  width: fit-content;
+  height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  &:last-child {
-    background: #d12771;
+  color: ${props => (props.selected ? 'white' : 'rgba(255, 255, 255, 0.38)')};
+  &:hover {
+    color: ${COLOR.WHITE};
   }
 `;
 
@@ -79,7 +95,7 @@ const HeaderSearchBarContainer = styled.div`
   border-radius: 5px;
 `;
 const HeaderSearchBar = styled.input.attrs({
-  placeholder: '프로젝트',
+  placeholder: '프로젝트 검색',
 })`
   width: 150px;
   height: 35px;
@@ -128,6 +144,10 @@ function Header() {
   const [modalOpen, setModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  const pathName = useLocation().pathname;
+
+  console.log(pathName);
+
   const openModal = () => {
     setModalOpen(true);
     document.body.style.overflow = 'hidden';
@@ -170,12 +190,32 @@ function Header() {
   return (
     <HeaderContainer>
       <HeaderNavigation>
-        <HeaderLogo />
+        <Link to='/'>
+          <HeaderLogo />
+        </Link>
         <HeaderLists>
-          <HeaderItem>프로젝트</HeaderItem>
-          <HeaderItem>팀원찾기</HeaderItem>
-          <HeaderItem>채팅</HeaderItem>
-          <HeaderItem>팀원모집하기</HeaderItem>
+          <Link to='/project'>
+            <HeaderItem selected={pathName === '/project'}>프로젝트</HeaderItem>
+          </Link>
+          <Link to='/findTeamMember'>
+            <HeaderItem selected={pathName === '/findTeamMember'}>
+              팀원찾기
+            </HeaderItem>
+          </Link>
+          <Link to='/chat'>
+            <HeaderItem selected={pathName === '/chat'}>채팅</HeaderItem>
+          </Link>
+          <Link to='/findTeamMember'>
+            <HeaderItem
+              style={{
+                background: `${COLOR.POINT_BLUE}`,
+                color: `${COLOR.WHITE}`,
+                padding: '6px 16px',
+              }}
+            >
+              팀원모집하기
+            </HeaderItem>
+          </Link>
         </HeaderLists>
       </HeaderNavigation>
       {login ? (

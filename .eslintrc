@@ -5,10 +5,15 @@
   },
     "extends": ["airbnb", "eslint:recommended", "plugin:prettier/recommended"],
     "plugins": ["react", "prettier"],
-    // plugins: ["eslint-plugin-react"]도 가능하지만 eslint-plugin-접두사는 생략 가능
     "rules": {
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
-      "prettier/prettier": ["error", { "endOfLine": "auto" }]
-    }
+      "prettier/prettier": ["error", { "endOfLine": "auto" }],
+      "react/jsx-props-no-spreading": "off",
+      "no-param-reassign": "off"
+    },
+    "parserOptions": {
+      "parser": "@babel/eslint-parser",
+      "ecmaVersion": "latest"
+    },
   }
