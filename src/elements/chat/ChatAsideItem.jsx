@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaUserCircle } from 'react-icons/fa';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import ChatDropdownOption from './ChatDropdownOption';
 
 const ChatAsideItemBox = styled.div`
   width: 355px;
@@ -52,6 +53,11 @@ const ThreeDots = styled(BsThreeDotsVertical)`
   font-size: 30px;
 `;
 function ChatAsideItem() {
+  const [toggle, setToggle] = useState(false);
+  const handleToggle = () => {
+    setToggle(!toggle);
+  };
+
   return (
     <ChatAsideItemBox>
       <ChatAsideItemWrapper>
@@ -62,8 +68,9 @@ function ChatAsideItem() {
           </p>
           <p>안녕하세요~</p>
         </TextBox>
-        <ThreeDots />
+        <ThreeDots onClick={handleToggle} />
       </ChatAsideItemWrapper>
+      {toggle && <ChatDropdownOption handleToggle={handleToggle} />}
     </ChatAsideItemBox>
   );
 }

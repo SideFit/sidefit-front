@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RiBookmarkLine, RiBookmarkFill } from 'react-icons/ri';
+import PropTypes from 'prop-types';
 import PortfolioIcon from '../../elements/home/PortfolioIcon';
 import NewIcon from '../../elements/home/NewIcon';
 
@@ -10,7 +11,8 @@ const ProjectCardContainer = styled.div`
 `;
 
 const ProjectImage = styled.div`
-  background: grey;
+  background-image: url(${props => props.imageUrl});
+  background-size: cover;
   width: 100%;
   height: 120px;
   border-top-left-radius: 8px;
@@ -90,7 +92,7 @@ const BookmarkedButton = styled(RiBookmarkFill)`
   }
 `;
 
-function ProjectCard() {
+function ProjectCard({ imageUrl, title, type, field, hashtag, createdDate }) {
   const [iconClicked, setIconClicked] = useState('false');
 
   const toggleIconClicked = () => {
@@ -98,16 +100,18 @@ function ProjectCard() {
   };
   return (
     <ProjectCardContainer>
-      <ProjectImage>
+      <ProjectImage imageUrl={imageUrl}>
         <IconBox>
-          <PortfolioIcon />
+          <PortfolioIcon type={type} />
           <NewIcon />
         </IconBox>
       </ProjectImage>
       <ProjectInformation>
-        <h2>트레이너를 위한 1등 PT 관리 앱</h2>
-        <p>엔터테인먼트 · 1시간 전</p>
-        <p>#현재구성원 3명 #초기 기획단계 #PT앱</p>
+        <h2>{title}</h2>
+        <p>
+          {field} · {createdDate}
+        </p>
+        <p>{hashtag}</p>
         <RecruitmentStatusAndBookmark>
           <p>
             모집완료 <span>1/2</span>
@@ -122,5 +126,14 @@ function ProjectCard() {
     </ProjectCardContainer>
   );
 }
+
+ProjectCard.propTypes = {
+  imageUrl: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  field: PropTypes.string.isRequired,
+  hashtag: PropTypes.arrayOf(PropTypes.string).isRequired,
+  createdDate: PropTypes.string.isRequired,
+};
 
 export default ProjectCard;

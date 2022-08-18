@@ -18,7 +18,7 @@ const COLOR = {
 
   POINT_ORANGE: '#FE9225',
 
-  ERROR_PINK: '#CF6679',
+  ERROR_PINK: '#FF5252',
 
   BORDER_OUTLINE: 'rgba(255, 255, 255, 0.12)',
 
