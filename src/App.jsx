@@ -12,6 +12,7 @@ import ProfileChange from './pages/ProfileChange';
 import TeamMemberFind from './pages/TeamMemberFind';
 import FindTwoContainer from './components/teamMemberFind/FindTwoContainer';
 import CompleteConatainer from './components/teamMemberFind/CompleteContainer';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path='/teammemberfind' element={<TeamMemberFind />} />
         <Route path='/teammemberfind/2' element={<FindTwoContainer />} />
         <Route path='/teammemberfind/3' element={<CompleteConatainer />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
