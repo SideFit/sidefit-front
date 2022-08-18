@@ -9,6 +9,7 @@ import Chat from './pages/Chat';
 import ProjectPage from './pages/ProjectPage';
 import Footer from './components/common/Footer';
 import ProfileChange from './pages/ProfileChange';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/chat' element={<Chat />} />
         <Route path='/project' element={<ProjectPage />} />
         <Route path='/profileChange' element={<ProfileChange />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>

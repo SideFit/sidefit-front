@@ -7,7 +7,7 @@ import { BsChatFill } from 'react-icons/bs';
 import COLOR from '../../constants/color';
 
 const LoginModalBox = styled.div`
-  background: ${COLOR.MODAL_BACKGROUND};
+  background: ${COLOR.BACKGROUND_NAVY};
   width: 512px;
   height: 372px;
   border-radius: 16px;
@@ -16,7 +16,7 @@ const LoginModalBox = styled.div`
   align-items: center;
   position: relative;
   margin-right: 38px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
 `;
 const CloseIcon = styled(MdClose).attrs({
   size: '24',
@@ -84,8 +84,8 @@ const GoogleLoginButton = styled.button`
 const EmailLoginButton = styled.button`
   width: 400px;
   height: 48px;
-  background: ${COLOR.POINT_ORANGE};
-  color: ${COLOR.BUTTON_TEXT_BLACK};
+  background: ${COLOR.POINT_BLUE};
+  color: ${COLOR.TEXT_HIGH_EMPHASIS};
   border-radius: 6px;
   font-weight: 500;
   font-size: 15px;

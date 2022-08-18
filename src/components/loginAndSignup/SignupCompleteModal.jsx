@@ -108,7 +108,7 @@ const NextButton = styled.div`
   cursor: pointer;
 `;
 
-function SignupCompleteModal({ close, setLogin, setModalOpen }) {
+function SignupCompleteModal({ close, isLogin }) {
   return (
     <SignupCompleteModalBox>
       <CloseIcon onClick={close} />
@@ -130,14 +130,7 @@ function SignupCompleteModal({ close, setLogin, setModalOpen }) {
             <u>이메일 재전송</u>
           </p>
         </EmailResendBox>
-        <NextButton
-          onClick={() => {
-            setLogin(true);
-            setModalOpen(false);
-          }}
-        >
-          완료
-        </NextButton>
+        <NextButton onClick={isLogin}>완료</NextButton>
       </SignupCompleteModalWrapper>
     </SignupCompleteModalBox>
   );
@@ -145,8 +138,7 @@ function SignupCompleteModal({ close, setLogin, setModalOpen }) {
 
 SignupCompleteModal.propTypes = {
   close: PropTypes.func.isRequired,
-  setLogin: PropTypes.func.isRequired,
-  setModalOpen: PropTypes.func.isRequired,
+  isLogin: PropTypes.func.isRequired,
 };
 
 export default SignupCompleteModal;
