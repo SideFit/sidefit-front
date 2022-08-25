@@ -13,6 +13,7 @@ const PortfolioIconBox = styled.div`
   font-size: 13px;
   opacity: 0.8;
   padding: 0 10px;
+  line-height: 50%;
 `;
 
 function PortfolioIcon({ type }) {

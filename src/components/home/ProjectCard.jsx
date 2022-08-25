@@ -93,33 +93,59 @@ const BookmarkedButton = styled(RiBookmarkFill)`
 `;
 
 function ProjectCard({ imageUrl, title, type, field, hashtag, createdDate }) {
-  const [iconClicked, setIconClicked] = useState('false');
+  const [iconClicked, setIconClicked] = useState(false);
 
+  console.log(hashtag);
   const toggleIconClicked = () => {
     setIconClicked(!iconClicked);
+  };
+
+  const timeForToday = dateInput => {
+    const today = new Date();
+    const computeDate = new Date(dateInput);
+
+    const betweenTime = Math.floor(
+      (today.getTime() - computeDate.getTime()) / 1000 / 60,
+    );
+    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 60) {
+      return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+      return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 7) {
+      return `${betweenTimeDay}일전`;
+    }
+
+    return `${computeDate.getMonth() + 1}월 ${computeDate.getDate()}일`;
   };
   return (
     <ProjectCardContainer>
       <ProjectImage imageUrl={imageUrl}>
         <IconBox>
           <PortfolioIcon type={type} />
-          <NewIcon />
+          <NewIcon createdDate={createdDate} />
         </IconBox>
       </ProjectImage>
       <ProjectInformation>
         <h2>{title}</h2>
         <p>
-          {field} · {createdDate}
+          {field} · {timeForToday(createdDate)}
         </p>
-        <p>{hashtag}</p>
+        <p>{hashtag.join(' ')}</p>
         <RecruitmentStatusAndBookmark>
           <p>
             모집완료 <span>1/2</span>
           </p>
           {iconClicked ? (
-            <BookmarkButton onClick={toggleIconClicked} />
-          ) : (
             <BookmarkedButton onClick={toggleIconClicked} />
+          ) : (
+            <BookmarkButton onClick={toggleIconClicked} />
           )}
         </RecruitmentStatusAndBookmark>
       </ProjectInformation>

@@ -77,7 +77,11 @@ function ModalContainer({ close, isLogin }) {
       <ModalBlock>
         <Contents modalIndex={modalIndex}>
           <LoginModal setModalIndex={setModalIndex} close={close} />
-          <SignupModal setModalIndex={setModalIndex} close={close} />
+          <SignupModal
+            setModalIndex={setModalIndex}
+            close={close}
+            isLogin={isLogin}
+          />
           <SignupSecondModal setModalIndex={setModalIndex} close={close} />
           <SignupCompleteModal close={close} isLogin={isLogin} />
         </Contents>
