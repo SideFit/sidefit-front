@@ -40,6 +40,7 @@ const ProjectCardContainer = styled.article`
 function ProjectListsSection() {
   const dispatch = useDispatch();
   const selector = useSelector(state => state.project.projectLists);
+
   useEffect(() => {
     dispatch(fetchProjectLists());
     return () => dispatch(fetchProjectLists());
@@ -57,7 +58,7 @@ function ProjectListsSection() {
         {selector &&
           selector.map(data => (
             <ProjectCard
-              id={data.id}
+              key={data.id}
               type={data.type}
               imageUrl={data.image_url}
               title={data.title}
