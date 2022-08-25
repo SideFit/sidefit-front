@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { FaBell } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess } from '../../redux/slices/usersSlice';
 import headerLogo from '../../images/headerLogo.png';
 import HeaderProfileDropdown from './HeaderProfileDropdown';
 import ProjectApplyInformDropdown from './ProjectApplyInformDropdown';
@@ -138,7 +140,9 @@ const UserAvatar = styled.div`
 `;
 
 function Header() {
-  const [login, setLogin] = useState(false);
+  const AfterLogin = useSelector(state => state.user.isLogin);
+  const dispatch = useDispatch();
+  const [setLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   const [viewInform, setViewInform] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -177,7 +181,7 @@ function Header() {
   };
 
   const isLogin = () => {
-    setLogin(true);
+    dispatch(loginSuccess());
     setModalOpen(false);
     document.body.style.overflow = 'unset';
   };
@@ -218,7 +222,7 @@ function Header() {
           </Link>
         </HeaderLists>
       </HeaderNavigation>
-      {login ? (
+      {AfterLogin ? (
         <AfterLoginHeaderAside>
           <FaBell
             size={20}

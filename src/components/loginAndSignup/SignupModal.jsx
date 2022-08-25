@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { MdClose, MdErrorOutline } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { fetchUserById, login } from '../../redux/slices/usersSlice';
+import { loginUserByEmail, setErrorEmpty } from '../../redux/slices/usersSlice';
 import COLOR from '../../constants/color';
 
 const SignupModalBox = styled.div`
@@ -194,7 +194,7 @@ const schema = yup.object().shape({
     .string()
     .min(8, '비밀번호는 8자 이상 15자 이하의 문자와 숫자로 적으셔야 합니다.')
     .max(15, '비밀번호는 8자 이상 15자 이하의 문자와 숫자로 적으셔야 합니다.')
-    .required(),
+    .required('반드시 입력해야하는 필수 사항입니다.'),
 });
 function SignupModal({ close, setModalIndex }) {
   const {
@@ -207,21 +207,23 @@ function SignupModal({ close, setModalIndex }) {
   });
 
   const dispatch = useDispatch();
-  // const user = useSelector(state => state.user);
-
-  useEffect(() => {
-    dispatch(fetchUserById());
-    // console.log(user);
-  }, []);
+  const user = useSelector(state => state.user.isLogin);
+  const errorMsg = useSelector(state => state.user.error);
 
   const onSubmit = data => {
-    dispatch(login(data));
-    console.log(data);
+    dispatch(loginUserByEmail(data));
+    console.log(user);
+    console.log(errorMsg);
+    if (user) close();
   };
 
   const onError = error => {
     console.log(error);
   };
+
+  useEffect(() => {
+    dispatch(setErrorEmpty());
+  }, []);
 
   return (
     <SignupModalBox>
@@ -240,6 +242,9 @@ function SignupModal({ close, setModalIndex }) {
               // value={email}
               // onChange={handleOnChange}
               // onBlur={invalidEmailMessage}
+              onFocus={() => {
+                dispatch(setErrorEmpty());
+              }}
               placeholder='이메일 주소를 입력해 주세요.'
               emailError={errors.email}
               {...register('email', { required: true })}
@@ -247,7 +252,13 @@ function SignupModal({ close, setModalIndex }) {
             {errors.email && (
               <ErrorMessage>
                 <ExclamationMark />
-                {/* {errors.email?.message} */}
+                {errors.email?.message}
+              </ErrorMessage>
+            )}
+            {errorMsg === 'Cannot find user' && (
+              <ErrorMessage>
+                <ExclamationMark />
+                이메일을 찾을 수 없습니다.
               </ErrorMessage>
             )}
             <LabelCustom htmlFor='password'>비밀번호</LabelCustom>
@@ -259,13 +270,22 @@ function SignupModal({ close, setModalIndex }) {
               // onBlur={invalidPassword}
               // value={password}
               placeholder='비밀번호를 입력해 주세요.'
+              onFocus={() => {
+                dispatch(setErrorEmpty());
+              }}
               passwordError={errors.password}
               {...register('password', { required: true })}
             />
             {errors.password && (
               <ErrorMessage>
                 <ExclamationMark />
-                {/* {errors.password?.message} */}
+                {errors.password?.message}
+              </ErrorMessage>
+            )}
+            {errorMsg === 'Incorrect password' && (
+              <ErrorMessage>
+                <ExclamationMark />
+                비밀번호가 틀렸습니다.
               </ErrorMessage>
             )}
           </FormWrapper>
