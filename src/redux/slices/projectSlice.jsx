@@ -30,7 +30,9 @@ const projectSlice = createSlice({
       state.loading = true;
     },
     [fetchProjectLists.fulfilled]: (state, action) => {
-      state.projectLists = action.payload;
+      state.projectLists = action.payload.sort(
+        (a, b) => new Date(b.created_date) - new Date(a.created_date),
+      );
       // console.log(action.payload, 'action.payload');
       state.loading = false;
     },
