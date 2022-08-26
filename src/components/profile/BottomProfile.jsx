@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { FaLink } from 'react-icons/fa';
 import { BsPeople } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProjectLists } from '../../redux/slices/projectSlice';
 import ProjectCard from '../home/ProjectCard';
 import profile from '../../images/profile.png';
 import InformationBox from '../../elements/profile/InformationBox';
@@ -187,6 +189,12 @@ const ProfileImage = styled.img.attrs({
 `;
 
 function BottomProfile() {
+  const dispatch = useDispatch();
+  const selector = useSelector(state => state.project.projectLists);
+  useEffect(() => {
+    dispatch(fetchProjectLists());
+    return () => dispatch(fetchProjectLists());
+  }, []);
   return (
     <MyBottomProfile>
       <MoreInformationBox>
@@ -227,8 +235,20 @@ function BottomProfile() {
       <ProjectBox>
         <ProjectTitle>진행 중인 프로젝트</ProjectTitle>
         <ProjectCardBox>
-          <ProjectCard />
-          <ProjectCard />
+          {selector &&
+            selector
+              .filter(data => data.id < 3)
+              .map(data => (
+                <ProjectCard
+                  id={data.id}
+                  type={data.type}
+                  imageUrl={data.image_url}
+                  title={data.title}
+                  field={data.field}
+                  hashtag={data.hashtag}
+                  createdDate={data.created_date}
+                />
+              ))}
         </ProjectCardBox>
       </ProjectBox>
       <FeedbackBox>
