@@ -40,6 +40,7 @@ const initialState = {
   user: null,
   isLogin: false,
   error: null,
+  token: null,
 };
 
 export const userSlice = createSlice({
@@ -53,6 +54,9 @@ export const userSlice = createSlice({
     },
     setErrorEmpty: state => {
       state.error = null;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
     },
   },
   extraReducers: {
@@ -72,10 +76,10 @@ export const userSlice = createSlice({
       state.isLogin = false;
     },
     [loginUserByEmail.fulfilled]: (state, action) => {
-      state.user = action.payload;
-      console.log(state.user);
+      state.user = action.payload.user;
       state.isLogin = true;
       state.error = null;
+      state.token = action.payload.accessToken;
     },
     [loginUserByEmail.rejected]: (state, action) => {
       state.isLogin = false;
@@ -90,5 +94,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { loginSuccess, setErrorEmpty } = userSlice.actions;
+export const { loginSuccess, setErrorEmpty, setToken } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import { setToken } from './redux/slices/usersSlice';
 import GlobalStyle from './styles/GlobalStyle';
 import FindTeamMember from './pages/FindTeamMember';
 import Header from './components/common/Header';
@@ -15,6 +18,19 @@ import CompleteConatainer from './components/teamMemberFind/CompleteContainer';
 import NotFound from './pages/NotFound';
 
 function App() {
+  const token = useSelector(state => state.user.token);
+  const [cookies] = useCookies(['accessToken']);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token === null) {
+      const { accessToken } = cookies;
+      if (accessToken) {
+        dispatch(setToken(accessToken));
+      }
+    }
+  }, [dispatch, token, cookies]);
+
   return (
     <BrowserRouter>
       <GlobalStyle />
