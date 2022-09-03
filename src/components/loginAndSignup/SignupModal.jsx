@@ -207,14 +207,13 @@ function SignupModal({ close, setModalIndex }) {
   });
 
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user.isLogin);
+  const token = useSelector(state => state.user.token);
   const errorMsg = useSelector(state => state.user.error);
 
   const onSubmit = data => {
     dispatch(loginUserByEmail(data));
-    console.log(user);
     console.log(errorMsg);
-    if (user) close();
+    console.log(token);
   };
 
   const onError = error => {
@@ -223,7 +222,8 @@ function SignupModal({ close, setModalIndex }) {
 
   useEffect(() => {
     dispatch(setErrorEmpty());
-  }, []);
+    if (token) close();
+  }, [token]);
 
   return (
     <SignupModalBox>

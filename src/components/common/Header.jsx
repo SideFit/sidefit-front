@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { FaBell } from 'react-icons/fa';
+import { useCookies } from 'react-cookie';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess } from '../../redux/slices/usersSlice';
+import { loginSuccess, setToken } from '../../redux/slices/usersSlice';
 import headerLogo from '../../images/headerLogo.png';
 import HeaderProfileDropdown from './HeaderProfileDropdown';
 import ProjectApplyInformDropdown from './ProjectApplyInformDropdown';
@@ -12,6 +13,7 @@ import ModalPortal from '../loginAndSignup/ModalPortals';
 import ModalContainer from '../loginAndSignup/LoginSignupModalContainer';
 import LogoutModalContainer from '../loginAndSignup/LogoutModalContainer';
 import COLOR from '../../constants/color';
+import { connecting } from '../../redux/slices/projectSlice';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -140,15 +142,20 @@ const UserAvatar = styled.div`
 `;
 
 function Header() {
-  const AfterLogin = useSelector(state => state.user.isLogin);
+  const token = useSelector(state => state.user.token);
   const dispatch = useDispatch();
-  const [setLogin] = useState(false);
   const [visible, setVisible] = useState(false);
   const [viewInform, setViewInform] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [, , removeCookies] = useCookies(['accessToken']);
 
   const pathName = useLocation().pathname;
+
+  useEffect(() => {
+    dispatch(connecting());
+    return () => dispatch(connecting());
+  }, []);
 
   console.log(pathName);
 
@@ -187,7 +194,8 @@ function Header() {
   };
 
   const isLogout = () => {
-    setLogin(false);
+    removeCookies(['accessToken']);
+    dispatch(setToken(null));
     setVisible(false);
     setViewInform(false);
   };
@@ -222,7 +230,7 @@ function Header() {
           </Link>
         </HeaderLists>
       </HeaderNavigation>
-      {AfterLogin ? (
+      {token ? (
         <AfterLoginHeaderAside>
           <FaBell
             size={20}
