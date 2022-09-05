@@ -5,6 +5,8 @@ import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import SignupSecondModal from './SignupSecondModal';
 import SignupCompleteModal from './SignupCompleteModal';
+import FindPasswordModal from './FindPasswordModal';
+import AuthMailSendModal from './AuthMailSendModal';
 
 const Container = styled.div`
   position: absolute;
@@ -83,7 +85,9 @@ function ModalContainer({ close, isLogin }) {
             isLogin={isLogin}
           />
           <SignupSecondModal setModalIndex={setModalIndex} close={close} />
-          <SignupCompleteModal close={close} isLogin={isLogin} />
+          <SignupCompleteModal close={close} setModalIndex={setModalIndex} />
+          <FindPasswordModal />
+          <AuthMailSendModal />
         </Contents>
       </ModalBlock>
     </Container>
