@@ -10,7 +10,12 @@
       "react/jsx-uses-vars": "error",
       "prettier/prettier": ["error", { "endOfLine": "auto" }],
       "react/jsx-props-no-spreading": "off",
-      "no-param-reassign": "off"
+      "no-param-reassign": "off",
+      "jsx-a11y/label-has-associated-control": ["error", {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }]
     },
     "parserOptions": {
       "parser": "@babel/eslint-parser",
