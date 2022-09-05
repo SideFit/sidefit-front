@@ -26,6 +26,7 @@ const CloseIcon = styled(MdClose).attrs({
   right: 21px;
   color: ${COLOR.TEXT_MEDIUM_EMPHASIS};
 `;
+
 const LoginModalWrapper = styled.div`
   width: 400px;
   height: 276px;

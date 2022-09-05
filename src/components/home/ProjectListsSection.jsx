@@ -45,7 +45,6 @@ function ProjectListsSection() {
     dispatch(fetchProjectLists());
     return () => dispatch(fetchProjectLists());
   }, []);
-  console.log(selector);
   return (
     <ProjectListsSectionContainer>
       <ProjectListsTop>

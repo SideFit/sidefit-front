@@ -5,19 +5,16 @@ export const fetchProjectLists = createAsyncThunk(
   'project/fetchProjectLists',
   async () => {
     const result = await axios.get('http://localhost:4000/project');
-    console.log(result.data);
+    // console.log(result.data);
     return result.data;
   },
 );
 
-export const connecting = createAsyncThunk(
-  'project/fetchProjectLists',
-  async () => {
-    const result = await axios.get('http://3.39.135.44:8080/api/healthcheck');
-    console.log(result.data);
-    return result.data;
-  },
-);
+export const connecting = createAsyncThunk('project/connecting', async () => {
+  const result = await axios.get('http://3.39.135.44:8080/api/healthcheck');
+  console.log(result.data);
+  return result.data;
+});
 
 const initialState = {
   loading: false,
@@ -42,7 +39,7 @@ const projectSlice = createSlice({
       state.projectLists = action.payload.sort(
         (a, b) => new Date(b.created_date) - new Date(a.created_date),
       );
-      // console.log(action.payload, 'action.payload');
+      // console.log(state.projectLists, 'action.payload');
       state.loading = false;
     },
     [fetchProjectLists.rejected]: (state, action) => {
