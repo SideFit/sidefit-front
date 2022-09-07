@@ -3,29 +3,22 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Cookies } from 'react-cookie';
 import axios from 'axios';
 
-export const fetchUserByEmail = createAsyncThunk(
-  'user/fetchUserByEmail',
-  async () => {
-    const response = await axios.get('http://localhost:4000/users');
-    // console.log(response.data);
-    return response.data;
-  },
-);
 const cookies = new Cookies();
+
 export const loginUserByEmail = createAsyncThunk(
   'user/loginUserByEmail',
   async (userInfo, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        'http://localhost:4000/login',
+        'http://3.39.135.44:8080/api/auth/login',
         userInfo,
       );
       console.log(response);
-      cookies.set('accessToken', response.data.accessToken, {
+      cookies.set('accessToken', response.data.result.accessToken, {
         path: '/',
       });
       console.log(cookies);
-      return response.data;
+      return response.data.result.data;
     } catch (error) {
       if (!error.response) {
         throw error;
@@ -36,11 +29,48 @@ export const loginUserByEmail = createAsyncThunk(
   },
 );
 
+export const emailDuplicationCheck = createAsyncThunk(
+  'user/emailDuplicationCheck',
+  async emailAddress => {
+    const response = await axios.post(
+      'http://3.39.135.44:8080/api/auth/email/check',
+      emailAddress,
+    );
+    console.log(response);
+    return response.data.success;
+  },
+);
+
+export const nicknameDuplicationCheck = createAsyncThunk(
+  'user/nicknameDuplicationCheck',
+  async nickname => {
+    const response = await axios.post(
+      'http://3.39.135.44:8080/api/auth/nickname/check',
+      nickname,
+    );
+    console.log(response);
+    return response.data;
+  },
+);
+
+export const sendAuthLinkByEmail = createAsyncThunk(
+  'user/sendAuthLinkByEmail',
+  async userEmail => {
+    const response = await axios.post(
+      'http://3.39.135.44:8080/api/auth/email',
+      userEmail,
+    );
+    console.log(response);
+    return response.data;
+  },
+);
+
 const initialState = {
   user: null,
   isLogin: false,
   error: null,
   token: null,
+  emailPossible: null,
 };
 
 export const userSlice = createSlice({
@@ -58,20 +88,11 @@ export const userSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    setDuplicationEmpty: state => {
+      state.emailPossible = null;
+    },
   },
   extraReducers: {
-    [fetchUserByEmail.pending]: state => {
-      state.isLogin = true;
-    },
-    [fetchUserByEmail.fulfilled]: (state, action) => {
-      state.user = action.payload;
-      // console.log(state.user);
-      state.isLogin = false;
-    },
-    [fetchUserByEmail.rejected]: (state, action) => {
-      state.isLogin = false;
-      state.error = action.payload;
-    },
     [loginUserByEmail.pending]: state => {
       state.isLogin = false;
     },
@@ -91,8 +112,19 @@ export const userSlice = createSlice({
         console.log(action.error.message);
       }
     },
+    [emailDuplicationCheck.pending]: state => {
+      state.isLogin = false;
+    },
+    [emailDuplicationCheck.fulfilled]: (state, action) => {
+      state.emailPossible = action.payload;
+      state.error = null;
+    },
+    [emailDuplicationCheck.rejected]: state => {
+      state.isLogin = false;
+    },
   },
 });
 
-export const { loginSuccess, setErrorEmpty, setToken } = userSlice.actions;
+export const { loginSuccess, setErrorEmpty, setToken, setDuplicationEmpty } =
+  userSlice.actions;
 export default userSlice.reducer;

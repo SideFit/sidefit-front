@@ -12,7 +12,7 @@ export const fetchProjectLists = createAsyncThunk(
 
 export const connecting = createAsyncThunk('project/connecting', async () => {
   const result = await axios.get('http://3.39.135.44:8080/api/healthcheck');
-  console.log(result.data);
+  // console.log(result.data);
   return result.data;
 });
 

@@ -5,7 +5,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
+import { BiCheckCircle } from 'react-icons/bi';
+import { FiCheck } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
 import COLOR from '../../constants/color';
+import {
+  emailDuplicationCheck,
+  // setDuplicationEmpty,
+} from '../../redux/slices/usersSlice';
 
 const FindPasswordModalBox = styled.div`
   width: 512px;
@@ -16,7 +23,7 @@ const FindPasswordModalBox = styled.div`
     if (props.errorType === 2) {
       return '652px';
     }
-    if (props.errorType === 1) {
+    if (props.errorType === 1 || props.userEmail !== null) {
       return '624px';
     }
     return '588px';
@@ -48,7 +55,7 @@ const FindPasswordModalWrapper = styled.div`
     if (props.errorType === 2) {
       return '556px';
     }
-    if (props.errorType === 1) {
+    if (props.errorType === 1 || props.userEmail !== null) {
       return '528px';
     }
     return '500px';
@@ -84,6 +91,7 @@ const InputWrapper = styled.div`
     border: none;
     padding-left: 16px;
     color: ${COLOR.WHITE};
+    position: relative;
     &:autofill {
       box-shadow: 0 0 0px 1000px ${COLOR.BACKGROUND_BLACK} inset !important;
     }
@@ -119,7 +127,7 @@ const ModalForm = styled.form`
     if (props.errorType === 2) {
       return '464px';
     }
-    if (props.errorType === 1) {
+    if (props.errorType === 1 || props.userEmail !== null) {
       return '436px';
     }
     return '408px';
@@ -148,6 +156,18 @@ const NextButton = styled.button`
   line-height: 24px;
   letter-spacing: 0.5px;
   margin-top: 20px;
+  &:hover,
+  &:active {
+    &:not([disabled]) {
+      background: #448aff;
+    }
+  }
+  &:active {
+    &:not([disabled]) {
+      position: relative;
+      top: 2px;
+    }
+  }
 `;
 
 const FindPasswordModalBottomBox = styled.div`
@@ -214,6 +234,36 @@ const ExclamationMark = styled(MdErrorOutline)`
   width: 20px;
   height: 20px;
 `;
+
+const AuthCompleteMessageBox = styled.div`
+  height: fit-content;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  color: ${COLOR.TEXT_HIGHLIGHT};
+  display: flex;
+  align-items: center;
+  p {
+    height: 20px;
+    line-height: 22px;
+  }
+`;
+
+const CheckMark = styled(BiCheckCircle)`
+  margin-right: 4px;
+  width: 20px;
+  height: 20px;
+`;
+
+const BigCheckMark = styled(FiCheck)`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 42px;
+  right: 19px;
+  color: ${COLOR.TEXT_HIGHLIGHT};
+`;
+
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -235,9 +285,12 @@ const schema = yup.object().shape({
 });
 
 function findPasswordModal() {
+  const [userData, setUserData] = useState({ email: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-
+  const dispatch = useDispatch();
+  const userEmail = useSelector(state => state.user.emailPossible);
+  // const { email } = userData;
   const ToggleShowPassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -262,38 +315,76 @@ function findPasswordModal() {
   const onError = err => {
     console.log(err);
   };
+
+  const emailDuplicationChecking = e => {
+    // dispatch(setDuplicationEmpty);
+    if (Object.keys(errors).length === 0) {
+      setUserData(prevFormData => {
+        return {
+          ...prevFormData,
+          [e.target.name]: e.target.value,
+        };
+      });
+      const result = JSON.stringify(userData);
+      console.log(result);
+      // return result;
+      dispatch(emailDuplicationCheck(userData));
+    }
+  };
+
   return (
-    <FindPasswordModalBox errorType={Object.keys(errors).length}>
+    <FindPasswordModalBox
+      errorType={Object.keys(errors).length}
+      userEmail={userEmail}
+    >
       <CloseIcon />
-      <FindPasswordModalWrapper errorType={Object.keys(errors).length}>
+      <FindPasswordModalWrapper
+        errorType={Object.keys(errors).length}
+        userEmail={userEmail}
+      >
         <ModalForm
           onSubmit={handleSubmit(onSubmit, onError)}
           errorType={Object.keys(errors).length}
+          userEmail={userEmail}
         >
           <h3>회원가입</h3>
-          <InputWrapper errorType={errors.email}>
-            <label htmlFor='signUpemail'>이메일</label>
+          <InputWrapper errorType={errors.email} userEmail={userEmail}>
+            <label htmlFor='signupEmail'>이메일</label>
             <input
               type='email'
-              id='signUpemail'
+              id='signupEmail'
               placeholder='ex) sidefit@email.com'
-              errorType={errors.email}
-              {...register('email', { required: true })}
+              name='signupEmail'
+              {...register('email', {
+                required: true,
+                onChange: e => {
+                  emailDuplicationChecking(e);
+                },
+              })}
             />
-            {errors.email && (
+            <BigCheckMark />
+            {(errors.email || userEmail === false) && (
               <ErrorMessageBox>
                 <ExclamationMark />
-                <p>{errors.email?.message}</p>
+                <p>
+                  {errors.email?.message}
+                  {userEmail === false && '이미 사용중인 이메일입니다.'}
+                </p>
               </ErrorMessageBox>
+            )}
+            {Object.keys(errors).length === 0 && userEmail && (
+              <AuthCompleteMessageBox>
+                <CheckMark />
+                <p>사용 가능한 이메일입니다.</p>
+              </AuthCompleteMessageBox>
             )}
           </InputWrapper>
           <InputWrapper errorType={errors.password}>
-            <label htmlFor='signUppassword'>비밀번호</label>
+            <label htmlFor='signUpPassword'>비밀번호</label>
             <input
               type={showPassword ? 'text' : 'password'}
-              id='signUppassword'
+              id='signUpPassword'
               placeholder='숫자, 영어 혹은 특수문자 8자리 이상'
-              errorType={errors.password}
               {...register('password', { required: true })}
             />
             {showPassword ? (
@@ -309,12 +400,11 @@ function findPasswordModal() {
             )}
           </InputWrapper>
           <InputWrapper errorType={errors.passwordConfirm}>
-            <label htmlFor='signUppasswordConfirm'>비밀번호 확인</label>
+            <label htmlFor='signUpPasswordConfirm'>비밀번호 확인</label>
             <input
               type={showPasswordConfirm ? 'text' : 'password'}
-              id='signUppasswordConfirm'
+              id='signUpPasswordConfirm'
               placeholder='한 번 더 똑같이 적어주세요'
-              errorType={errors.passwordConfirm}
               {...register('passwordConfirm', { required: true })}
             />
             {showPasswordConfirm ? (

@@ -92,6 +92,15 @@ const EmailLoginButton = styled.button`
   font-size: 15px;
   line-height: 24px;
   border: none;
+  &:active {
+    position: relative;
+    top: 2px;
+  }
+  &:hover,
+  &:active {
+    background: #448aff;
+    color: ${COLOR.WHITE};
+  }
 `;
 
 const KakaoIcon = styled(BsChatFill)`
