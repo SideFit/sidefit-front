@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import HiddenStore from '../../components/teamMemberFind/HiddenStore';
-import { WarringTextRecruitment } from './WarringText';
+import RecruitmentList from './RecruitmentList';
+import { WarringRecruitment } from './WarringText';
 
 const RecruitmentPlanDropdownBox = styled.div`
   width: 100%;
-  height: 100px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -20,19 +20,20 @@ const RecruitmentPlanDropdownBox = styled.div`
 `;
 
 const SelectedBox = styled.div`
-  width: 378px;
+  width: 484px;
   height: 36px;
   display: flex;
   align-items: center;
   margin-top: -2px;
-  margin-left: 0px;
   border-radius: 5px;
   letter-spacing: -1.5px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+  line-height: 24px;
+  color: white;
 `;
 
 const ArrowIcon = styled(RiArrowDownSLine)`
-  margin-left: 350px;
+  margin-left: 450px;
   position: absolute;
   color: white;
   width: 24px;
@@ -40,7 +41,7 @@ const ArrowIcon = styled(RiArrowDownSLine)`
 `;
 
 const Line = styled.div`
-  width: 378px;
+  width: 484px;
   height: 1px;
   &.WarringHidden {
     background: rgba(255, 255, 255, 0.38);
@@ -53,7 +54,7 @@ const Line = styled.div`
 
 const DropdownItemBox = styled.ul`
   background: #121a26;
-  width: 378px;
+  width: 484px;
   border-radius: 5px;
   border: none;
   margin-top: 5px;
@@ -75,21 +76,6 @@ const DropdownItem = styled.li`
   }
 `;
 
-const MeetingplanBox = styled.div`
-  display: flex;
-  align-items: center;
-  width: auto;
-  height: 20px;
-  margin-top: 13px;
-  background: transparent;
-  border-radius: 4px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 28px;
-  letter-spacing: -1.5px;
-`;
-
 function Recruitment() {
   const {
     selected,
@@ -99,25 +85,28 @@ function Recruitment() {
     RecruitmentsHidden,
   } = useContext(HiddenStore);
   const [toggle, setToggle] = useState(false);
+  const nextId = useRef(1);
 
-  const FilterItems = ['기획', '프론트엔드', '백엔드', '디자이너'];
+  // const FilterItems = [
+  //   { text: '기획' },
+  //   { text: '프론트엔드' },
+  //   { text: '백엔드' },
+  //   { text: '디자이너' },
+  //   { text: 'UI/UX' },
+  // ];
+
+  const FilterItems = ['기획', '프론트엔드', '백엔드', '디자이너', 'UI/UX'];
 
   const handleToggle = () => {
     setToggle(!toggle);
   };
 
-  // eslint-disable-next-line no-unused-vars
-
-  const [counter, setCount] = useState(1);
-  const upCount = () => {
-    setCount(counter + 1);
-  };
-  const minusCount = () => {
-    setCount(counter - 1);
+  const onRemove = id => {
+    setRecruitment(Recruitments.filter(item => item.id !== id));
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: 50 }}>
       <RecruitmentPlanDropdownBox>
         <SelectedBox onClick={handleToggle}>
           {selected} <ArrowIcon />
@@ -128,9 +117,14 @@ function Recruitment() {
             {FilterItems.map(item => (
               <DropdownItem
                 onClick={() => {
-                  setSelected(item);
-                  setRecruitment([...Recruitments, item]);
                   handleToggle();
+                  setSelected(item);
+                  const user = {
+                    id: nextId.current,
+                    item,
+                  };
+                  setRecruitment([...Recruitments, user]);
+                  nextId.current += 1;
                 }}
                 key={item}
               >
@@ -139,23 +133,12 @@ function Recruitment() {
             ))}
           </DropdownItemBox>
         )}
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          {Recruitments.map(items => (
-            <MeetingplanBox>
-              {items}
-              <AiOutlineMinus
-                style={{ marginLeft: 28, marginRight: 24 }}
-                onClick={minusCount}
-              />
-              {counter}
-              <AiOutlinePlus
-                style={{ marginLeft: 24, marginRight: 20 }}
-                onClick={upCount}
-              />
-            </MeetingplanBox>
-          ))}
-        </div>
-        <WarringTextRecruitment warringName='모집 직군과 인원을 추가해주세요' />
+        {RecruitmentsHidden ? (
+          <WarringRecruitment text='모집 직군과 인원을 추가해주세요' />
+        ) : null}
+        {Recruitments.map(items => (
+          <RecruitmentList key={items.id} items={items} onRemove={onRemove} />
+        ))}
       </RecruitmentPlanDropdownBox>
     </div>
   );

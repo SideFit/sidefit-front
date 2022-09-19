@@ -30,6 +30,9 @@ export function HiddenStoreProvider({ children }) {
   };
   const [select, setSelect] = useState([]);
   const [selectHidden, setSelectHidden] = useState('');
+  const onSelectChangeHandler = e => {
+    setSelect(e.target.value);
+  };
 
   const titleCheck = () => {
     return titleContent.length === 0
@@ -48,11 +51,6 @@ export function HiddenStoreProvider({ children }) {
       : setIntroduceContentHidden(false);
   };
 
-  const navigate = useNavigate();
-  const NextPage = () => {
-    navigate('/teammemberfind/2');
-  };
-
   const check = () => {
     titleCheck();
     tpyeCheck();
@@ -61,11 +59,18 @@ export function HiddenStoreProvider({ children }) {
   };
 
   // INFORMATIONTWO STATE
-
   const [selected, setSelected] = useState('기획');
 
   const [Recruitments, setRecruitment] = useState([]);
   const [RecruitmentsHidden, setRecruitmentHidden] = useState('');
+
+  const [inputs, setInputs] = useState({ stack: '' });
+  const [stackItem, setStackItem] = useState([]);
+
+  const [tag, setTag] = useState({ stack: '' });
+  const [tagItems, setTagItems] = useState([]);
+
+  const [period, setPeriod] = useState('2주');
 
   const RecruitmentsCheck = () => {
     return Recruitments.length === 0
@@ -73,33 +78,40 @@ export function HiddenStoreProvider({ children }) {
       : setRecruitmentHidden(false);
   };
 
-  const navigate2 = useNavigate();
-  const BackPage = () => {
-    navigate2('/teammemberfind');
+  // TEAMMEMBERFIND
+  const [next, setNext] = useState(true);
+  const nextHandler = () => {
+    setNext(!next);
   };
 
-  const navigate3 = useNavigate();
+  const navigate = useNavigate();
   const SecondPage = () => {
-    navigate3('/teammemberfind/3');
+    navigate('/teammemberfind/2');
   };
 
-  const navigate4 = useNavigate();
-  const SecondBackPage = () => {
-    navigate4('/teammemberfind/2');
-  };
-
-  const navigate5 = useNavigate();
+  const navigate2 = useNavigate();
   const FindTeamMemberPage = () => {
-    navigate5('/findTeamMember');
+    navigate2('/findTeamMember');
   };
 
   return (
     <HiddenStore.Provider
       value={{
+        period,
+        setPeriod,
+        nextHandler,
+        next,
+        tag,
+        setTag,
+        tagItems,
+        setTagItems,
+        stackItem,
+        setStackItem,
+        inputs,
+        setInputs,
         FindTeamMemberPage,
-        SecondBackPage,
+        onSelectChangeHandler,
         SecondPage,
-        BackPage,
         selected,
         setSelected,
         Recruitments,
@@ -107,7 +119,6 @@ export function HiddenStoreProvider({ children }) {
         RecruitmentsHidden,
         RecruitmentsCheck,
         check,
-        NextPage,
         titleHidden,
         typeHidden,
         introduceContentHidden,

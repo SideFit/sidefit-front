@@ -5,7 +5,7 @@ export const fetchProjectLists = createAsyncThunk(
   'project/fetchProjectLists',
   async () => {
     const result = await axios.get('http://localhost:4000/project');
-    console.log(result.data);
+    // console.log(result);
     return result.data;
   },
 );
@@ -30,7 +30,9 @@ const projectSlice = createSlice({
       state.loading = true;
     },
     [fetchProjectLists.fulfilled]: (state, action) => {
-      state.projectLists = action.payload;
+      state.projectLists = action.payload.sort(
+        (a, b) => new Date(b.created_date) - new Date(a.created_date),
+      );
       // console.log(action.payload, 'action.payload');
       state.loading = false;
     },

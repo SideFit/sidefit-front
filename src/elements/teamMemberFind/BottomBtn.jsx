@@ -8,9 +8,9 @@ const HomeContainer = styled.div`
   height: 48px;
   display: flex;
   flex-direction: row;
-  margin: 180px 0px 0px 452px;
+  margin: 161px 0px 100px 0px;
   &.SecondHomeContainer {
-    margin: -12px 0px 0px 68px;
+    margin: 168px 0px 0px 900px;
   }
   &.CompleteContainer {
     margin: 64px 0px 0px 40px;
@@ -57,19 +57,22 @@ const NextBtn = styled.button`
 `;
 
 function BottomBtn() {
-  const { NextPage, check, titleContent, type, select, introduceContent } =
+  const { nextHandler, check, titleContent, type, select, introduceContent } =
     useContext(HiddenStore);
 
   return (
     <HomeContainer>
-      <BackBtn>이전</BackBtn>
+      <BackBtn type='button' onClick={() => window.location.replace('/')}>
+        이전
+      </BackBtn>
       <NextBtn
+        type='button'
         onClick={() => {
           return titleContent.length !== 0 &&
             type !== undefined &&
             select.length !== 0 &&
             introduceContent.length !== 0
-            ? NextPage()
+            ? nextHandler() || check()
             : check();
         }}
       >
@@ -80,17 +83,15 @@ function BottomBtn() {
 }
 
 export function SecondBottomBtn() {
-  const {
-    BackPage,
-    SecondPage,
-    RecruitmentsHidden,
-    RecruitmentsCheck,
-    Recruitments,
-  } = useContext(HiddenStore);
+  const { nextHandler, SecondPage, RecruitmentsCheck, Recruitments } =
+    useContext(HiddenStore);
   return (
     <HomeContainer className='SecondHomeContainer'>
-      <BackBtn onClick={BackPage}>이전</BackBtn>
+      <BackBtn type='button' onClick={nextHandler}>
+        이전
+      </BackBtn>
       <NextBtn
+        type='submit'
         className='SecondBtn'
         onClick={() => {
           return Recruitments.length === 0 ? RecruitmentsCheck() : SecondPage();
@@ -106,8 +107,14 @@ export function CompleteBottonBtn() {
   const { SecondBackPage, FindTeamMemberPage } = useContext(HiddenStore);
   return (
     <HomeContainer className='CompleteContainer'>
-      <BackBtn onClick={SecondBackPage}>이전</BackBtn>
-      <NextBtn className='CompleteBtn' onClick={FindTeamMemberPage}>
+      <BackBtn type='button' onClick={SecondBackPage}>
+        이전
+      </BackBtn>
+      <NextBtn
+        type='button'
+        className='CompleteBtn'
+        onClick={FindTeamMemberPage}
+      >
         팀원 찾기
       </NextBtn>
     </HomeContainer>

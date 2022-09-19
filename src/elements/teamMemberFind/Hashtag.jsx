@@ -1,14 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
+import HiddenStore from '../../components/teamMemberFind/HiddenStore';
 import HashtagList from './HashtagList';
 
 const HashtagBox = styled.div`
-  width: 800px;
+  width: 500px;
   height: 120px;
+  white-space: nowrap;
 `;
 
 const StackInput = styled.input`
-  width: 377px;
+  width: 484px;
   height: 30px;
   background: transparent;
   outline: none;
@@ -19,7 +21,7 @@ const StackInput = styled.input`
   font-size: 16px;
   letter-spacing: -1.5px;
   line-height: 24px;
-  color: rgba(255, 255, 255, 0.6);
+  color: white;
   ::placeholder {
     font-size: 16px;
     letter-spacing: -1.5px;
@@ -27,39 +29,40 @@ const StackInput = styled.input`
 `;
 
 const Line = styled.div`
-  width: 378px;
+  width: 484px;
   height: 1px;
   background: rgba(255, 255, 255, 0.38);
 `;
 
 function Hashtag() {
-  const [inputs, setInputs] = useState({ stack: '' });
-  const [items, setItems] = useState([]);
-  const { stack } = inputs;
+  const { tag, setTag, tagItems, setTagItems } = useContext(HiddenStore);
+  const { stack } = tag;
   const nextId = useRef(1);
 
   const onChange = e => {
     const { name, value } = e.target;
-    setInputs({
-      ...inputs,
+    setTag({
+      ...tag,
       [name]: value,
     });
   };
 
-  const onCreate = () => {
-    const item = {
-      id: nextId.current,
-      stack,
-    };
-    setItems([...items, item]);
+  const onCreate = e => {
+    if (e.key === 'Enter') {
+      const item = {
+        id: nextId.current,
+        stack,
+      };
+      setTagItems([...tagItems, item]);
 
-    setInputs({ stack: '' });
+      setTag({ stack: '' });
 
-    nextId.current += 1;
+      nextId.current += 1;
+    }
   };
 
   const onRemove = id => {
-    setItems(items.filter(item => item.id !== id));
+    setTagItems(tagItems.filter(item => item.id !== id));
   };
 
   return (
@@ -67,16 +70,13 @@ function Hashtag() {
       <StackInput
         name='stack'
         value={stack}
+        type='text'
         onChange={onChange}
         placeholder='#2주 프로젝트'
-        onKeyPress={e => {
-          if (e.key === 'Enter') {
-            onCreate();
-          }
-        }}
+        onKeyPress={onCreate}
       />
       <Line />
-      <HashtagList items={items} onRemove={onRemove} />
+      <HashtagList items={tagItems} onRemove={onRemove} />
     </HashtagBox>
   );
 }

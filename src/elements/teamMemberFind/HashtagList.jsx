@@ -9,7 +9,8 @@ const HashtagBox = styled.div`
   height: 40px;
   margin-top: 15px;
   margin-right: 4px;
-  background: #2962ff;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    #1f2b3c;
   padding-left: 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 4px;
