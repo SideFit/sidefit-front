@@ -10,6 +10,12 @@ export const fetchProfileLists = createAsyncThunk(
   },
 );
 
+export const connecting = createAsyncThunk('project/connecting', async () => {
+  const result = await axios.get('http://3.39.135.44:8080/api/healthcheck');
+  // console.log(result.data);
+  return result.data;
+});
+
 const initialState = {
   lodaing: false,
   profileLists: null,
@@ -26,14 +32,14 @@ const profileSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchProfileLists.pending]: state => {
+    [connecting.pending]: state => {
       state.lodaing = true;
     },
-    [fetchProfileLists.fulfilled]: (state, action) => {
+    [connecting.fulfilled]: (state, action) => {
       state.profileLists = action.payload;
       state.loading = false;
     },
-    [fetchProfileLists.rejected]: (state, action) => {
+    [connecting.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.error;
     },

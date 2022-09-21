@@ -26,7 +26,7 @@ const HashtagBox = styled.div`
 function Item({ item, onRemove }) {
   return (
     <HashtagBox>
-      #{item.stack}
+      #{item.tag}
       <FaTimes
         style={{ marginLeft: 9, marginRight: 17 }}
         onClick={() => {

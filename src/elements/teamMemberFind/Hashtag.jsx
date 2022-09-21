@@ -36,26 +36,22 @@ const Line = styled.div`
 
 function Hashtag() {
   const { tag, setTag, tagItems, setTagItems } = useContext(HiddenStore);
-  const { stack } = tag;
   const nextId = useRef(1);
 
-  const onChange = e => {
-    const { name, value } = e.target;
-    setTag({
-      ...tag,
-      [name]: value,
-    });
+  const onChangeHashtag = e => {
+    setTag(e.target.value);
   };
 
   const onCreate = e => {
+    e.preventDefault();
     if (e.key === 'Enter') {
       const item = {
         id: nextId.current,
-        stack,
+        tag,
       };
       setTagItems([...tagItems, item]);
 
-      setTag({ stack: '' });
+      setTag('');
 
       nextId.current += 1;
     }
@@ -68,10 +64,9 @@ function Hashtag() {
   return (
     <HashtagBox>
       <StackInput
-        name='stack'
-        value={stack}
+        value={tag}
         type='text'
-        onChange={onChange}
+        onChange={onChangeHashtag}
         placeholder='#2주 프로젝트'
         onKeyPress={onCreate}
       />

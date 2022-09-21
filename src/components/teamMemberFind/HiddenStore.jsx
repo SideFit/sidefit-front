@@ -67,7 +67,7 @@ export function HiddenStoreProvider({ children }) {
   const [inputs, setInputs] = useState({ stack: '' });
   const [stackItem, setStackItem] = useState([]);
 
-  const [tag, setTag] = useState({ stack: '' });
+  const [tag, setTag] = useState('');
   const [tagItems, setTagItems] = useState([]);
 
   const [period, setPeriod] = useState('2주');

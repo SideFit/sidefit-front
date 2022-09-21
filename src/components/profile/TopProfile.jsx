@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import ChatButton from './ChatButton';
 import MeetingInvite from '../../elements/profile/MeetingInvite';
 import profile from '../../images/profile.png';
+import { connecting } from '../../redux/slices/profileSlice';
 
 const MyTopProfile = styled.div`
   width: 100%;
@@ -101,6 +103,16 @@ const Contents4 = styled.div`
 `;
 
 function TopProfile() {
+  const dispatch = useDispatch();
+  const selector = useSelector(state => state.profile.profileLists);
+
+  useEffect(() => {
+    dispatch(connecting());
+    return () => dispatch(connecting());
+  }, []);
+
+  console.log(selector);
+
   return (
     <MyTopProfile>
       <ProfileImage />
@@ -111,8 +123,9 @@ function TopProfile() {
         </Contents1>
         <Contents2>마지막 접속일 7일 전</Contents2>
         <Contents3>
-          새롭고 다양한 시도를 좋아합니다. 되도록 고양이와 사용자를 이롭게 하는
-          디자인이 옳다고 믿습니다. Figma Lover
+          {/* 새롭고 다양한 시도를 좋아합니다. 되도록 고양이와 사용자를 이롭게 하는
+          디자인이 옳다고 믿습니다. Figma Lover */}
+          {selector.code}
         </Contents3>
         <Contents4>#포트폴리오용 #FIGMA #직장인</Contents4>
         <ButtonBox>
