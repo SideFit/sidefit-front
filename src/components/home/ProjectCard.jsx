@@ -94,8 +94,7 @@ const BookmarkedButton = styled(RiBookmarkFill)`
 
 function ProjectCard({ imageUrl, title, type, field, hashtag, createdDate }) {
   const [iconClicked, setIconClicked] = useState(false);
-
-  // console.log(hashtag);
+  
   const toggleIconClicked = () => {
     setIconClicked(!iconClicked);
   };

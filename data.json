@@ -279,8 +279,12 @@
       "title": "트래킹 지도 앱 만들어보실 분?",
       "type": "포트폴리오",
       "field": "여행",
-      "hashtag": ["#현재 구성원 3명", "#초기 기획단계", "#PT앱"],
-      "created_date": "2022-08-25 21:25:33"
+      "hashtag": [
+        "#현재 구성원 3명",
+        "#초기 기획단계",
+        "#PT앱"
+      ],
+      "created_date": "2022-09-03 21:25:33"
     },
     {
       "id": 2,
@@ -449,15 +453,19 @@
       "image_url": "https://images.unsplash.com/photo-1507608158173-1dcec673a2e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
       "title": "사이드프로젝트 팀 Team NK 모집",
       "type": "포트폴리오",
-      "field": "",
-      "hashtag": ["#현재 구성원 3명", "#초기 기획단계", "#PT앱"],
+      "field": "커뮤니티",
+      "hashtag": [
+        "#현재 구성원 3명",
+        "#초기 기획단계",
+        "#PT앱"
+      ],
       "created_date": "2022-08-10 00:01:14"
     },
     {
       "id": 21,
       "image_url": "https://images.unsplash.com/photo-1508615039623-a25605d2b022?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjV8fGJhY2tncm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
       "title": "[서울] 스타트업, zero to one",
-      "type": "B2B",
+      "type": "출시 목적",
       "field": "엔터",
       "hashtag": ["#현재 구성원 3명", "#초기 기획단계", "#PT앱"],
       "created_date": "2022-08-06 01:07:22"
@@ -656,8 +664,12 @@
       "image_url": "https://images.unsplash.com/photo-1577017040065-650ee4d43339?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTY1fHxiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
       "title": "머신러닝 기반 향수 검색, 큐레이팅",
       "type": "포트폴리오",
-      "field": "",
-      "hashtag": ["#현재 구성원 3명", "#초기 기획단계", "#PT앱"],
+      "field": "뷰티/패션",
+      "hashtag": [
+        "#현재 구성원 3명",
+        "#초기 기획단계",
+        "#PT앱"
+      ],
       "created_date": "2022-08-12 05:24:58"
     },
     {
