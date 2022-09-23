@@ -6,7 +6,7 @@ import FieldOfIntersetButton from '../../elements/profileChange/FieldOfIntersetB
 import TechnologyStack from '../../elements/profileChange/TechnologyStack';
 import URLBox from '../../elements/profileChange/URLBox';
 
-const HomeContainer = styled.div`
+const HomeContainer = styled.form`
   width: 1200px;
   height: 843px;
 `;

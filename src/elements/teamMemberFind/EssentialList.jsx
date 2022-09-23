@@ -4,12 +4,23 @@ import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import styled from 'styled-components';
 
-const EssentialplanBox = styled.div`
-  width: auto;
+const Div = styled.div`
+  width: 500px;
+  height: 100px;
+`;
+
+const Asd = styled.div`
+  display: flex;
+  flex-direction: row;
+  overflow: visible;
+  flex-wrap: wrap;
+`;
+
+const Box = styled.div`
   height: 40px;
+  width: auto;
+  margin: 15px 4px 0px 0px;
   padding-left: 20px;
-  margin-top: 15px;
-  margin-right: 4px;
   background: #2962ff;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 4px;
@@ -22,29 +33,23 @@ const EssentialplanBox = styled.div`
   align-items: center;
 `;
 
-function Item({ item, onRemove }) {
-  return (
-    <EssentialplanBox>
-      {item.stack}
-      <FaTimes
-        style={{ marginLeft: 9, marginRight: 17 }}
-        onClick={() => {
-          onRemove(item.id);
-        }}
-      >
-        삭제
-      </FaTimes>
-    </EssentialplanBox>
-  );
-}
 function EssentialList({ items, onRemove }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
-      {items.map(item => (
-        <Item item={item} key={item.id} onRemove={onRemove} />
-      ))}
-    </div>
+    <Div>
+      <Asd>
+        {items.map(value => (
+          <Box key={value.id}>
+            {value.item.text}
+            <FaTimes
+              style={{ marginLeft: 9, marginRight: 17 }}
+              onClick={() => {
+                onRemove(value.id);
+              }}
+            />
+          </Box>
+        ))}
+      </Asd>
+    </Div>
   );
 }
-
 export default EssentialList;

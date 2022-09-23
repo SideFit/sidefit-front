@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProjectLists } from '../../redux/slices/projectSlice';
 import InformationBox from '../../elements/profile/InformationBox';
 import ProjectCard from '../home/ProjectCard';
 import team1 from '../../images/team1.png';
@@ -93,6 +95,13 @@ const TeamImage = styled.img.attrs({
 `;
 
 function LeftContents() {
+  const dispatch = useDispatch();
+  const selector = useSelector(state => state.project.projectLists);
+  useEffect(() => {
+    dispatch(fetchProjectLists());
+    return () => dispatch(fetchProjectLists());
+  }, []);
+
   return (
     <HomeContainer>
       <ContentsTitle>프로젝트 소개</ContentsTitle>
@@ -156,10 +165,20 @@ function LeftContents() {
       </TeamContainer>
       <ContentsTitle>다른 프로젝트도 둘러보세요!</ContentsTitle>
       <CardContainer>
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
+        {selector &&
+          selector
+            .filter(data => data.id < 5)
+            .map(data => (
+              <ProjectCard
+                id={data.id}
+                type={data.type}
+                imageUrl={data.image_url}
+                title={data.title}
+                field={data.field}
+                hashtag={data.hashtag}
+                createdDate={data.created_date}
+              />
+            ))}
       </CardContainer>
     </HomeContainer>
   );
