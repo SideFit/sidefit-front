@@ -65,12 +65,47 @@ export const sendAuthLinkByEmail = createAsyncThunk(
   },
 );
 
+export const saveEmailAndPassword = createAsyncThunk(
+  'user/saveEmailAndPassword',
+  async signUpData => {
+    const response = await axios.post(
+      'http://3.39.135.44:8080/api/auth/email/save',
+      signUpData,
+    );
+    console.log(signUpData);
+    console.log(response);
+    return response.data;
+  },
+);
+
+export const getUsers = createAsyncThunk('user/getUsers', async () => {
+  const response = await axios.get('http://3.39.135.44:8080/api/users');
+  console.log(response);
+  console.log(response);
+  return response.data;
+});
+
+export const getUserDetails = createAsyncThunk(
+  'user/getUserDetails',
+  async userId => {
+    const response = await axios.get(
+      `http://3.39.135.44:8080/api/user/${userId}`,
+    );
+    console.log(response);
+    console.log(response);
+    return response.data;
+  },
+);
+
 const initialState = {
   user: null,
   isLogin: false,
   error: null,
   token: null,
   emailPossible: null,
+  userList: null,
+  isLoadingUserList: false,
+  isErrorUserList: null,
 };
 
 export const userSlice = createSlice({
@@ -121,6 +156,17 @@ export const userSlice = createSlice({
     },
     [emailDuplicationCheck.rejected]: state => {
       state.isLogin = false;
+    },
+    [getUsers.pending]: state => {
+      state.isLoadingUserList = true;
+    },
+    [getUsers.fulfilled]: (state, action) => {
+      state.isLoadingUserList = false;
+      state.userList = action.payload;
+    },
+    [getUsers.rejected]: (state, action) => {
+      state.isLoadingUserList = false;
+      state.isErrorUserList = action.payload;
     },
   },
 });

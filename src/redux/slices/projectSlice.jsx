@@ -16,6 +16,18 @@ export const connecting = createAsyncThunk('project/connecting', async () => {
   return result.data;
 });
 
+export const fetchProjectListsByOptions = createAsyncThunk(
+  'project/fetchProjectListsByOptions',
+  async filteringOptions => {
+    const result = await axios.post(
+      'http://3.39.135.44:8080/api/project/keyword-search?condition=LATEST',
+      filteringOptions,
+    );
+    console.log(result.data.result.data);
+    return result.data.result.data;
+  },
+);
+
 const initialState = {
   loading: false,
   projectLists: null,
@@ -43,6 +55,21 @@ const projectSlice = createSlice({
       state.loading = false;
     },
     [fetchProjectLists.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.error;
+    },
+    [fetchProjectListsByOptions.pending]: state => {
+      state.loading = true;
+    },
+    [fetchProjectListsByOptions.fulfilled]: (state, action) => {
+      state.projectLists = action.payload;
+      // .sort(
+      //   (a, b) => new Date(b.created_date) - new Date(a.created_date),
+      // );
+      // console.log(state.projectLists, 'action.payload');
+      state.loading = false;
+    },
+    [fetchProjectListsByOptions.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.error;
     },

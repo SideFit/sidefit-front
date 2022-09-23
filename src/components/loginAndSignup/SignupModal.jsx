@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { loginUserByEmail, setErrorEmpty } from '../../redux/slices/usersSlice';
 import COLOR from '../../constants/color';
+import checkImage from '../../images/check_white.png';
 
 const SignupModalBox = styled.div`
   width: 512px;
@@ -179,7 +180,7 @@ const NextButton = styled.button`
   line-height: 24px;
   letter-spacing: 0.7px;
   color: ${props =>
-    props.disabled ? `${COLOR.TEXT_DISABLED}` : `${COLOR.WHITE}`};
+    props.disabled ? `${COLOR.TEXT_HIGH_EMPHASIS}` : `${COLOR.WHITE}`};
   border: none;
   display: flex;
   justify-content: center;
@@ -226,30 +227,48 @@ const BottomOptionsBox = styled.div`
 `;
 
 const MaintainLoginBox = styled.div`
-  width: 200px;
+  width: 230px;
   height: 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  line-height: 24px;
   label {
+    position: relative;
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 0.25px;
     color: ${COLOR.TEXT_MEDIUM_EMPHASIS};
+    /* border: 1px solid red; */
+    height: 24px;
+    left: 32px;
   }
   input {
     display: none;
   }
   label::before {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border: 2px solid ${COLOR.TEXT_MEDIUM_EMPHASIS};
+    content: '';
+    display: inline-block;
+    border-radius: 4px;
+    position: absolute;
+    top: 3px;
+    left: -32px;
   }
-  input:checked + label::after {
-    content: '✔';
-    font-size: 15px;
-    width: 15px;
-    height: 15px;
+  input:checked + label::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: none;
+    background: ${COLOR.POINT_BLUE};
+    background-image: url(${checkImage});
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 3px;
+    left: -32px;
   }
 `;
 
@@ -267,7 +286,8 @@ const OptionsBox = styled.div`
       content: '';
       width: 0px;
       height: 14px;
-      border: 2px solid rgba(255, 255, 255, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 6px;
       margin-right: 8px;
     }
   }
@@ -406,7 +426,7 @@ function SignupModal({ close, setModalIndex }) {
         <BottomOptionsBox>
           <MaintainLoginBox>
             <input type='checkbox' id='maintainLogin' name='maintainLogin' />
-            <label htmlFor='maintainLogin'>로그인 상태 유지 </label>
+            <label htmlFor='maintainLogin'>로그인 상태 유지</label>
           </MaintainLoginBox>
           <OptionsBox>
             <span>비밀번호 찾기</span>

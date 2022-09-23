@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { MdClose } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { BsChatFill } from 'react-icons/bs';
+import KakaoLogin from 'react-kakao-login';
 import COLOR from '../../constants/color';
 
 const LoginModalBox = styled.div`
@@ -58,16 +59,21 @@ const TitleBox = styled.div`
   font-style: normal;
 `;
 
-const KakaoLoginButton = styled.button`
+const KakaoLoginButton = styled(KakaoLogin)`
   width: 400px;
   height: 48px;
   background: ${COLOR.KAKAO_LOGIN};
-  color: ${COLOR.BUTTON_TEXT_BLACK};
-  border-radius: 6px;
+  color: #000000;
+  opacity: 0.85;
+  border-radius: 12px;
   font-weight: 500;
   font-size: 15px;
   line-height: 24px;
   border: none;
+  &:active {
+    position: relative;
+    top: 2px;
+  }
 `;
 
 const GoogleLoginButton = styled.button`
@@ -80,6 +86,10 @@ const GoogleLoginButton = styled.button`
   font-size: 15px;
   line-height: 24px;
   border: none;
+  &:active {
+    position: relative;
+    top: 2px;
+  }
 `;
 
 const EmailLoginButton = styled.button`
@@ -105,6 +115,7 @@ const EmailLoginButton = styled.button`
 
 const KakaoIcon = styled(BsChatFill)`
   margin-right: 12px;
+  color: #000000;
 `;
 
 const GoogleIcon = styled(FcGoogle)`
@@ -120,6 +131,10 @@ const LoginButtonBox = styled.div`
 `;
 
 function LoginModal({ close, setModalIndex }) {
+  // const REST_API_KEY = "95723a45bd8a663b4b3d829fa73cf676";
+  // const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const token = process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY;
   return (
     <LoginModalBox>
       <CloseIcon onClick={close} />
@@ -129,7 +144,12 @@ function LoginModal({ close, setModalIndex }) {
           <p>지금 로그인하고 나에게 꼭 맞는 사이드프로젝트를 시작해보세요!</p>
         </TitleBox>
         <LoginButtonBox>
-          <KakaoLoginButton>
+          <KakaoLoginButton
+            token={token}
+            onSuccess={console.log}
+            onFail={console.error}
+            onLogout={console.info}
+          >
             <KakaoIcon />
             카카오로 계속하기
           </KakaoLoginButton>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { MdClose, MdErrorOutline } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import COLOR from '../../constants/color';
 import {
   emailDuplicationCheck,
-  // setDuplicationEmpty,
+  setDuplicationEmpty,
+  saveEmailAndPassword,
+  sendAuthLinkByEmail,
 } from '../../redux/slices/usersSlice';
 
 const FindPasswordModalBox = styled.div`
@@ -23,7 +25,11 @@ const FindPasswordModalBox = styled.div`
     if (props.errorType === 2) {
       return '652px';
     }
-    if (props.errorType === 1 || props.userEmail !== null) {
+    if (
+      props.errorType === 1 ||
+      props.emailAvailable ||
+      props.emailUnavailable
+    ) {
       return '624px';
     }
     return '588px';
@@ -55,7 +61,11 @@ const FindPasswordModalWrapper = styled.div`
     if (props.errorType === 2) {
       return '556px';
     }
-    if (props.errorType === 1 || props.userEmail !== null) {
+    if (
+      props.errorType === 1 ||
+      props.emailAvailable ||
+      props.emailUnavailable
+    ) {
       return '528px';
     }
     return '500px';
@@ -68,7 +78,7 @@ const FindPasswordModalWrapper = styled.div`
 const InputWrapper = styled.div`
   width: 400px;
   height: ${props => {
-    if (props.errorType) {
+    if (props.errorType || props.emailAvailable || props.emailUnavailable) {
       return '104px';
     }
     return '76px';
@@ -108,9 +118,11 @@ const InputWrapper = styled.div`
     &:focus {
       border: 1px solid ${COLOR.TEXT_HIGHLIGHT};
     }
-    /* border: ${props => props.error && `1px solid ${COLOR.ERROR_PINK}`}; */
+    &:hover {
+      border: 1px solid ${COLOR.TEXT_MEDIUM_EMPHASIS};
+    }
     ${props => {
-      if (props.errorType) {
+      if (props.errorType || props.emailUnavailable) {
         return `border: 1px solid ${COLOR.ERROR_PINK};`;
       }
       return 'border: none';
@@ -127,7 +139,11 @@ const ModalForm = styled.form`
     if (props.errorType === 2) {
       return '464px';
     }
-    if (props.errorType === 1 || props.userEmail !== null) {
+    if (
+      props.errorType === 1 ||
+      props.emailAvailable ||
+      props.emailUnavailable
+    ) {
       return '436px';
     }
     return '408px';
@@ -148,9 +164,12 @@ const NextButton = styled.button`
   width: 400px;
   height: 48px;
   background: ${COLOR.POINT_BLUE};
+  opacity: ${props => (props.disabled ? '0.6' : '1.0')};
   border-radius: 6px;
   border: none;
-  color: ${COLOR.WHITE};
+  color: ${props =>
+    props.disabled ? `${COLOR.TEXT_HIGH_EMPHASIS}` : `${COLOR.WHITE}`};
+  cursor: ${props => (props.disabled ? 'no-drop' : 'pointer')};
   font-weight: 500;
   font-size: 15px;
   line-height: 24px;
@@ -185,6 +204,7 @@ const FindPasswordModalBottomBox = styled.div`
     color: ${COLOR.TEXT_MEDIUM_EMPHASIS};
     span {
       color: ${COLOR.TEXT_HIGHLIGHT};
+      cursor: pointer;
     }
   }
   p:last-child {
@@ -262,6 +282,7 @@ const BigCheckMark = styled(FiCheck)`
   top: 42px;
   right: 19px;
   color: ${COLOR.TEXT_HIGHLIGHT};
+  display: ${props => (props.emailavailable ? 'block' : 'none')};
 `;
 
 const schema = yup.object().shape({
@@ -278,19 +299,18 @@ const schema = yup.object().shape({
       /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])[^\s]*$/,
       '알파벳, 숫자, 공백을 제외한 특수문자를 모두 포함해야 합니다!',
     ),
-  passwordConfirm: yup
+  passwordCheck: yup
     .string()
     .required('반드시 입력해야하는 필수 사항입니다.')
     .oneOf([yup.ref('password'), null], '위의 비밀번호와 일치하지 않아요.'),
 });
 
-function findPasswordModal() {
+function findPasswordModal({ close, setModalIndex }) {
   const [userData, setUserData] = useState({ email: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const dispatch = useDispatch();
   const userEmail = useSelector(state => state.user.emailPossible);
-  // const { email } = userData;
   const ToggleShowPassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -301,7 +321,7 @@ function findPasswordModal() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -310,6 +330,8 @@ function findPasswordModal() {
   const onSubmit = dataInput => {
     console.log('submit');
     console.log(dataInput);
+    dispatch(saveEmailAndPassword(dataInput));
+    dispatch(sendAuthLinkByEmail(userData));
   };
 
   const onError = err => {
@@ -317,38 +339,48 @@ function findPasswordModal() {
   };
 
   const emailDuplicationChecking = e => {
-    // dispatch(setDuplicationEmpty);
-    if (Object.keys(errors).length === 0) {
+    if (typeof errors.email === 'undefined') {
       setUserData(prevFormData => {
         return {
           ...prevFormData,
           [e.target.name]: e.target.value,
         };
       });
-      const result = JSON.stringify(userData);
-      console.log(result);
+      // const result = JSON.stringify(userData);
+      // console.log(result);
       // return result;
       dispatch(emailDuplicationCheck(userData));
     }
   };
 
+  useEffect(() => {
+    dispatch(setDuplicationEmpty());
+  }, []);
+
   return (
     <FindPasswordModalBox
       errorType={Object.keys(errors).length}
-      userEmail={userEmail}
+      emailUnavailable={userEmail === false}
+      emailAvailable={userEmail}
     >
-      <CloseIcon />
+      <CloseIcon onClick={close} />
       <FindPasswordModalWrapper
         errorType={Object.keys(errors).length}
-        userEmail={userEmail}
+        emailUnavailable={userEmail === false}
+        emailAvailable={userEmail}
       >
         <ModalForm
           onSubmit={handleSubmit(onSubmit, onError)}
           errorType={Object.keys(errors).length}
-          userEmail={userEmail}
+          emailUnavailable={userEmail === false}
+          emailAvailable={userEmail}
         >
           <h3>회원가입</h3>
-          <InputWrapper errorType={errors.email} userEmail={userEmail}>
+          <InputWrapper
+            errorType={errors.email}
+            emailUnavailable={userEmail === false}
+            emailAvailable={userEmail}
+          >
             <label htmlFor='signupEmail'>이메일</label>
             <input
               type='email'
@@ -362,7 +394,9 @@ function findPasswordModal() {
                 },
               })}
             />
-            <BigCheckMark />
+            <BigCheckMark
+              emailavailable={typeof errors.email === 'undefined' && userEmail}
+            />
             {(errors.email || userEmail === false) && (
               <ErrorMessageBox>
                 <ExclamationMark />
@@ -372,7 +406,7 @@ function findPasswordModal() {
                 </p>
               </ErrorMessageBox>
             )}
-            {Object.keys(errors).length === 0 && userEmail && (
+            {typeof errors.email === 'undefined' && userEmail && (
               <AuthCompleteMessageBox>
                 <CheckMark />
                 <p>사용 가능한 이메일입니다.</p>
@@ -405,7 +439,7 @@ function findPasswordModal() {
               type={showPasswordConfirm ? 'text' : 'password'}
               id='signUpPasswordConfirm'
               placeholder='한 번 더 똑같이 적어주세요'
-              {...register('passwordConfirm', { required: true })}
+              {...register('passwordCheck', { required: true })}
             />
             {showPasswordConfirm ? (
               <EyeIcon onClick={ToggleShowPasswordConfirm} />
@@ -419,14 +453,22 @@ function findPasswordModal() {
               </ErrorMessageBox>
             )}
           </InputWrapper>
-          <NextButton>다음</NextButton>
+          <NextButton
+            disabled={!isValid || userEmail === false}
+            onClick={() => setModalIndex(3)}
+          >
+            다음
+          </NextButton>
         </ModalForm>
         <FindPasswordModalBottomBox>
           <p>
-            이미 가입했다면? <span>로그인</span>
+            이미 가입했다면?
+            <span role='presentation' onClick={() => setModalIndex(0)}>
+              로그인
+            </span>
           </p>
           <p>
-            등록하는 순간 <span>SIDEFIT</span>의 <span>서비스 이용약관</span>과{' '}
+            등록하는 순간 <span>SIDEFIT</span>의 <span>서비스 이용약관</span>과
             <span>개인정보 처리방침</span>에 동의하게 됩니다.
           </p>
         </FindPasswordModalBottomBox>

@@ -81,19 +81,19 @@ function ModalContainer({ close, isLogin }) {
       <Background onClick={close} />
       <ModalBlock>
         <Contents modalIndex={modalIndex}>
-          <SignupSecondModal setModalIndex={setModalIndex} close={close} />
           <LoginModal setModalIndex={setModalIndex} close={close} />
           <SignupModal
             setModalIndex={setModalIndex}
             close={close}
             isLogin={isLogin}
           />
-          <FindPasswordModal />
+          <FindPasswordModal setModalIndex={setModalIndex} close={close} />
+          <AuthMailSendModal close={close} />
+          <SignupSecondModal setModalIndex={setModalIndex} close={close} />
           <PasswordResetMailSendModal />
           <PasswordResetModal />
           <SendChangePasswordModal />
           <SignupCompleteModal close={close} setModalIndex={setModalIndex} />
-          <AuthMailSendModal />
         </Contents>
       </ModalBlock>
     </Container>
