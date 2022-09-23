@@ -2,32 +2,32 @@ import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
 import ImageDrag from '../../images/imageDrag.png';
-import BtnContainer from '../../elements/teamMemberFind/BtnContainer';
+import BtnContents from '../../elements/teamMemberFind/BtnContents';
 import BottomBtn from '../../elements/teamMemberFind/BottomBtn';
 import {
-  WarringTextTitle,
-  WarringTextType,
-  WarringTextSelect,
-  WarringTextIntroduce,
+  WarringType,
+  WarringIntroduce,
+  WarringSelect,
 } from '../../elements/teamMemberFind/WarringText';
 import HiddenStore from './HiddenStore';
+import Title from './Title';
 
-const HomeContainer = styled.div`
-  width: 1200px;
-  height: 1090.13px;
-  background: ${COLOR.BACKGROUND_NAVY};
-  border-radius: 24px;
-  margin: 0px 0px 64px 42px;
+const Form = styled.form`
+  width: 1900px;
+  height: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;
 
 const Wrapper = styled.div`
-  width: 1066px;
-  height: 1030px;
-  h2 {
-    margin-top: 15px;
+  width: 848px;
+  height: auto;
+  border-radius: 24px;
+  background: ${COLOR.BACKGROUND_NAVY};
+  margin: 0px 0px 64px 0px;
+  & h2 {
+    margin: 55px 0px 33px 68px;
     width: 170px;
     height: 36px;
     font-style: normal;
@@ -39,62 +39,23 @@ const Wrapper = styled.div`
 `;
 
 const Line = styled.div`
-  margin: 13px 0px 69px 0px;
+  margin: 13px 0px 40px 68px;
   background: rgba(255, 255, 255, 0.12);
   opacity: 0.6;
-  width: 1066px;
+  width: 712px;
   height: 1px;
 `;
 
 const SubTitle = styled.div`
   width: 130px;
   height: 28px;
+  font-family: 'Pretendard';
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
   line-height: 28px;
-  margin-right: 133px;
+  margin: 0px 60px 0px 68px;
   letter-spacing: -2px;
-`;
-
-const TitleContainer = styled.div`
-  width: 1066px;
-  height: 30px;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 66px;
-`;
-
-const ProjectTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Line2 = styled.div`
-  width: 480px;
-  height: 1px;
-  border: 1px;
-  &.LineContents {
-    background: rgba(255, 255, 255, 0.38);
-  }
-  &.LineNoContents {
-    background: #ff5252;
-  }
-`;
-
-const TitleInput = styled.textarea`
-  width: 480px;
-  height: 24px;
-  margin: 0px 0px 7px -2px;
-  font-size: 16px;
-  outline: none;
-  resize: none;
-  overflow: hidden;
-  line-height: 24px;
-  color: white;
-  background-color: transparent;
-  outline: none;
-  border: none;
 `;
 
 const TypeContainer = styled.div`
@@ -121,12 +82,6 @@ const TypeInput = styled.input`
   margin: 1px 12px 0px 0px;
   accent-color: #2962ff;
   cursor: pointer;
-`;
-
-const ButtonBox = styled.div`
-  width: 480px;
-  height: 135px;
-  margin: -19px 0px 0px 0px;
 `;
 
 const FieldContainer = styled.div`
@@ -180,6 +135,7 @@ const ProjectIntroduce = styled.div`
   height: 240px;
   display: flex;
   flex-direction: row;
+  margin-bottom: 68px;
 `;
 
 const IntroduceText = styled.textarea`
@@ -200,15 +156,18 @@ const IntroduceText = styled.textarea`
   }
 `;
 
-// eslint-disable-next-line react/prop-types
+const BtnBox = styled.div`
+  display: flex;
+  margin: 0px 0px 0px 850px;
+`;
+
 function Information() {
   const {
-    titleHidden,
     introduceContentHidden,
     type,
     handleClickRadioButton,
-    onChangeTitleContent,
     onIntroduceContentChange,
+    introduceContent,
   } = useContext(HiddenStore);
 
   const imageInput = useRef();
@@ -217,26 +176,16 @@ function Information() {
     imageInput.current.click();
   };
 
+  const submitHandler = e => {
+    e.preventDefault();
+  };
+
   return (
-    <HomeContainer>
+    <Form onSubmit={submitHandler}>
       <Wrapper>
         <h2>프로젝트 정보</h2>
         <Line />
-        <TitleContainer>
-          <SubTitle>프로젝트 제목 </SubTitle>
-          <ProjectTitle>
-            <TitleInput
-              onChange={onChangeTitleContent}
-              type='text'
-              name='title'
-              placeholder='Ex)여행 소셜 미디어 플랫폼'
-            />
-            <Line2
-              className={titleHidden ? 'LineNoContents' : 'LineContents'}
-            />
-          </ProjectTitle>
-          <WarringTextTitle warringName='올바른 형식의 제목을 입력해주세요' />
-        </TitleContainer>
+        <Title />
         <TypeContainer>
           <SubTitle>프로젝트 유형</SubTitle>
           <span>
@@ -266,20 +215,19 @@ function Information() {
             />
             토이프로젝트
           </span>
-          <WarringTextType
+          <WarringType
             left={-16}
             top={-8}
-            warringName='프로젝트 유형을 선택해주세요!'
+            text='프로젝트 유형을 선택해주세요!'
           />
         </TypeContainer>
         <FieldContainer>
           <SubTitle>프로젝트 분야</SubTitle>
-          <ButtonBox>
-            <BtnContainer />
-          </ButtonBox>
-          <WarringTextSelect
+          <BtnContents />
+          <WarringSelect
+            left={-19}
             top={82}
-            warringName='프로젝트 분야를 선택해주세요!'
+            text='프로젝트 분야를 선택해주세요!'
           />
         </FieldContainer>
         <ImageContainer>
@@ -298,18 +246,21 @@ function Information() {
           <SubTitle>프로젝트 소개</SubTitle>
           <IntroduceText
             onChange={onIntroduceContentChange}
+            value={introduceContent}
             placeholder='프로젝트에 대해 소개해주세요! (최대 120자) &#10;어떤 서비스를 만들고 싶으며, 타깃 고객은 누구일까요?'
             maxLength={120}
             className={introduceContentHidden ? 'HiddenIntroduce' : 'Introduce'}
           />
-          <WarringTextIntroduce
+          <WarringIntroduce
             top={208}
-            warringName='프로젝트 관련 설명을 입력해주세요!'
+            text='프로젝트 관련 설명을 입력해주세요!'
           />
         </ProjectIntroduce>
-        <BottomBtn />
       </Wrapper>
-    </HomeContainer>
+      <BtnBox>
+        <BottomBtn />
+      </BtnBox>
+    </Form>
   );
 }
 

@@ -36,61 +36,61 @@ const WarringImage = styled.img.attrs({
   height: 20px;
 `;
 
-export function WarringTextTitle({ top, left, warringName }) {
+export function WarringTitle({ text }) {
   const { titleHidden } = useContext(HiddenStore);
 
   return (
-    <div style={{ marginLeft: left, marginTop: top }}>
+    <div>
       <HomeContainer className={titleHidden ? 'WarringOn' : 'WarringHidden'}>
         <WarringImage />
-        <WaringText>{warringName}</WaringText>
+        <WaringText>{text}</WaringText>
       </HomeContainer>
     </div>
   );
 }
 
-export function WarringTextType({ top, left, warringName }) {
+export function WarringType({ top, left, text }) {
   const { typeHidden } = useContext(HiddenStore);
 
   return (
     <div style={{ marginLeft: left, marginTop: top }}>
       <HomeContainer className={typeHidden ? 'WarringOn' : 'WarringHidden'}>
         <WarringImage />
-        <WaringText>{warringName}</WaringText>
+        <WaringText>{text}</WaringText>
       </HomeContainer>
     </div>
   );
 }
 
-export function WarringTextSelect({ top, left, warringName }) {
+export function WarringSelect({ left, top, text }) {
   const { selectHidden } = useContext(HiddenStore);
 
   return (
     <div style={{ marginLeft: left, marginTop: top }}>
       <HomeContainer className={selectHidden ? 'WarringOn' : 'WarringHidden'}>
         <WarringImage />
-        <WaringText>{warringName}</WaringText>
+        <WaringText>{text}</WaringText>
       </HomeContainer>
     </div>
   );
 }
 
-export function WarringTextIntroduce({ top, left, warringName }) {
+export function WarringIntroduce({ top, text }) {
   const { introduceContentHidden } = useContext(HiddenStore);
 
   return (
-    <div style={{ marginLeft: left, marginTop: top }}>
+    <div style={{ marginTop: top }}>
       <HomeContainer
         className={introduceContentHidden ? 'WarringOn' : 'WarringHidden'}
       >
         <WarringImage />
-        <WaringText>{warringName}</WaringText>
+        <WaringText>{text}</WaringText>
       </HomeContainer>
     </div>
   );
 }
 
-export function WarringTextRecruitment({ warringName }) {
+export function WarringRecruitment({ text }) {
   const { RecruitmentsHidden } = useContext(HiddenStore);
 
   return (
@@ -99,36 +99,33 @@ export function WarringTextRecruitment({ warringName }) {
         className={RecruitmentsHidden ? 'WarringOn' : 'WarringHidden'}
       >
         <WarringImage />
-        <WaringText>{warringName}</WaringText>
+        <WaringText>{text}</WaringText>
       </HomeContainer>
     </div>
   );
 }
 
-WarringTextRecruitment.propTypes = {
-  warringName: PropTypes.string.isRequired,
+WarringRecruitment.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
-WarringTextTitle.propTypes = {
-  warringName: PropTypes.string.isRequired,
-  left: PropTypes.string.isRequired,
-  top: PropTypes.string.isRequired,
+WarringTitle.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
-WarringTextType.propTypes = {
-  warringName: PropTypes.string.isRequired,
-  left: PropTypes.string.isRequired,
-  top: PropTypes.string.isRequired,
+WarringType.propTypes = {
+  text: PropTypes.string.isRequired,
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
 };
 
-WarringTextSelect.propTypes = {
-  warringName: PropTypes.string.isRequired,
-  left: PropTypes.string.isRequired,
-  top: PropTypes.string.isRequired,
+WarringSelect.propTypes = {
+  text: PropTypes.string.isRequired,
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
 };
 
-WarringTextIntroduce.propTypes = {
-  warringName: PropTypes.string.isRequired,
-  left: PropTypes.string.isRequired,
-  top: PropTypes.string.isRequired,
+WarringIntroduce.propTypes = {
+  text: PropTypes.string.isRequired,
+  top: PropTypes.number.isRequired,
 };

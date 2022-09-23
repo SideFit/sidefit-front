@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { RiArrowDownSLine } from 'react-icons/ri';
+import HiddenStore from '../../components/teamMemberFind/HiddenStore';
 
 const PeriodDropdownBox = styled.div`
   display: flex;
@@ -10,22 +11,22 @@ const PeriodDropdownBox = styled.div`
   &:hover {
     cursor: pointer;
   }
-  z-index: 6;
+  z-index: 30;
   position: relative;
 `;
 
 const SelectedBox = styled.div`
-  width: 378px;
+  width: 484px;
   height: 36px;
   display: flex;
   align-items: center;
   margin-top: -2px;
   border-radius: 5px;
-  color: rgba(255, 255, 255, 0.6);
+  color: white;
 `;
 
 const ArrowIcon = styled(RiArrowDownSLine)`
-  margin-left: 350px;
+  margin-left: 450px;
   position: absolute;
   color: white;
   width: 24px;
@@ -33,14 +34,14 @@ const ArrowIcon = styled(RiArrowDownSLine)`
 `;
 
 const Line = styled.div`
-  width: 378px;
+  width: 484px;
   height: 1px;
   background: rgba(255, 255, 255, 0.38);
 `;
 
 const DropdownItemBox = styled.ul`
   background: #121a26;
-  width: 378px;
+  width: 484px;
   border-radius: 5px;
   border: none;
   margin-top: 5px;
@@ -62,15 +63,15 @@ const DropdownItem = styled.li`
 `;
 
 function PeriodDropdown() {
-  const [toggle, setToggle] = useState(false);
-  const [selected, setSelected] = useState('1주 프로젝트');
+  const { period, setPeriod } = useContext(HiddenStore);
 
+  const [toggle, setToggle] = useState(false);
   const FilterItems = [
-    { id: 1, value: '1주 프로젝트' },
-    { id: 2, value: '2주 프로젝트' },
-    { id: 3, value: '3주 프로젝트' },
-    { id: 4, value: '한달 프로젝트' },
-    { id: 5, value: '두달 프로젝트' },
+    { id: 1, value: '2주' },
+    { id: 2, value: '1달' },
+    { id: 3, value: '2달' },
+    { id: 4, value: '3달' },
+    { id: 5, value: '미정' },
     { id: 6, value: '협의' },
   ];
 
@@ -81,7 +82,7 @@ function PeriodDropdown() {
   return (
     <PeriodDropdownBox>
       <SelectedBox onClick={handleToggle}>
-        {selected} <ArrowIcon />
+        {period} <ArrowIcon />
       </SelectedBox>
       <Line />
       {toggle && (
@@ -89,7 +90,7 @@ function PeriodDropdown() {
           {FilterItems.map(item => (
             <DropdownItem
               onClick={() => {
-                setSelected(item.value);
+                setPeriod(item.value);
                 handleToggle();
               }}
               key={item.id}

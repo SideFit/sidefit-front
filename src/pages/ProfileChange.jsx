@@ -26,12 +26,15 @@ const SaveBtn = styled.div`
 `;
 
 function ProfileChange() {
+  const savePage = () => {
+    window.location.replace('/profile');
+  };
   return (
     <ButtonStoreProvider>
       <HomeContainer>
         <TopProfileChange />
         <BottomProfileChange />
-        <SaveBtn>저장하기</SaveBtn>
+        <SaveBtn onClick={savePage}>저장하기</SaveBtn>
       </HomeContainer>
     </ButtonStoreProvider>
   );

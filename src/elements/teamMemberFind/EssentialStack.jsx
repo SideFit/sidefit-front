@@ -1,83 +1,142 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
+import { RiArrowDownSLine } from 'react-icons/ri';
 import EssentialList from './EssentialList';
+import HiddenStore from '../../components/teamMemberFind/HiddenStore';
 
-const EssentialStackBox = styled.div`
-  width: 800px;
-  height: 155px;
+const MeetingPlanDropdownBox = styled.div`
+  width: 100%;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  &:hover {
+    cursor: pointer;
+  }
+  z-index: 20;
+  position: relative;
 `;
 
-const StackInput = styled.input`
-  width: 377px;
-  height: 30px;
-  background: transparent;
-  outline: none;
-  border: none;
-  margin-left: -10px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
+const SelectedBox = styled.div`
+  width: 484px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  margin-top: -2px;
+  margin-left: 0px;
+  border-radius: 5px;
   letter-spacing: -1.5px;
-  line-height: 24px;
-  color: rgba(255, 255, 255, 0.6);
-  ::placeholder {
-    font-size: 20px;
-    letter-spacing: -1.5px;
-  }
+  color: white;
+`;
+
+const ArrowIcon = styled(RiArrowDownSLine)`
+  margin-left: 450px;
+  position: absolute;
+  color: white;
+  width: 24px;
+  height: 24px;
 `;
 
 const Line = styled.div`
-  width: 378px;
+  width: 484px;
   height: 1px;
   background: rgba(255, 255, 255, 0.38);
 `;
 
+const DropdownItemBox = styled.ul`
+  background: #121a26;
+  width: 484px;
+  border-radius: 5px;
+  border: none;
+  margin-top: 5px;
+  position: absolute;
+  top: 35px;
+`;
+
+const DropdownItem = styled.li`
+  display: flex;
+  letter-spacing: -1.5px;
+  color: rgba(255, 255, 255, 0.6);
+  justify-content: flex-start;
+  align-items: center;
+  height: 32px;
+  padding-left: 15px;
+  &:hover {
+    background: #448aff;
+    color: white;
+  }
+`;
+
 function EssentialStack() {
-  const [inputs, setInputs] = useState({ stack: '' });
-  const [items, setItems] = useState([]);
-  const { stack } = inputs;
+  const { stackItem, setStackItem } = useContext(HiddenStore);
+  const [toggle, setToggle] = useState(false);
+
+  const [stack, setStack] = useState('Java');
+  // const [stackItem, setStackItem] = useState([]);
+
+  const MeetingData = [
+    { id: 1, text: 'Java' },
+    { id: 2, text: 'React' },
+    { id: 3, text: 'Vue' },
+    { id: 4, text: 'python' },
+    { id: 5, text: 'Node' },
+    { id: 6, text: 'Redux' },
+    { id: 7, text: 'Spring' },
+    { id: 8, text: 'Figma' },
+  ];
+
+  const handleToggle = () => {
+    setToggle(!toggle);
+  };
+
   const nextId = useRef(1);
 
-  const onChange = e => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
-
-  const onCreate = () => {
-    const item = {
-      id: nextId.current,
-      stack,
-    };
-    setItems([...items, item]);
-
-    setInputs({ stack: '' });
-
-    nextId.current += 1;
-  };
+  // const onChange = () => {
+  //   const user = {
+  //     id: nextId.current,
+  //     MeetingDatas,
+  //   };
+  //   setMeetingValue([...MeetingValue, user]);
+  //   nextId.current += 1;
+  // };
 
   const onRemove = id => {
-    setItems(items.filter(item => item.id !== id));
+    setStackItem(stackItem.filter(item => item.id !== id));
   };
 
   return (
-    <EssentialStackBox>
-      <StackInput
-        name='stack'
-        value={stack}
-        onChange={onChange}
-        placeholder='ex) Java'
-        onKeyPress={e => {
-          if (e.key === 'Enter') {
-            onCreate();
-          }
-        }}
-      />
-      <Line />
-      <EssentialList items={items} onRemove={onRemove} />
-    </EssentialStackBox>
+    <div>
+      <MeetingPlanDropdownBox>
+        <SelectedBox onClick={handleToggle}>
+          {stack}
+          <ArrowIcon />
+        </SelectedBox>
+        <Line />
+        {toggle && (
+          <DropdownItemBox>
+            {MeetingData.map(item => (
+              <DropdownItem
+                key={item.id}
+                onClick={() => {
+                  handleToggle();
+                  setStack(item.text);
+                  const user = {
+                    id: nextId.current,
+                    item,
+                  };
+                  setStackItem([...stackItem, user]);
+                  nextId.current += 1;
+                }}
+              >
+                {item.text}
+              </DropdownItem>
+            ))}
+          </DropdownItemBox>
+        )}
+        <EssentialList onRemove={onRemove} items={stackItem} />
+      </MeetingPlanDropdownBox>
+    </div>
   );
 }
 

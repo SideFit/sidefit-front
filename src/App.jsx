@@ -13,9 +13,9 @@ import ProjectPage from './pages/ProjectPage';
 import Footer from './components/common/Footer';
 import ProfileChange from './pages/ProfileChange';
 import TeamMemberFind from './pages/TeamMemberFind';
-import FindTwoContainer from './components/teamMemberFind/FindTwoContainer';
 import CompleteConatainer from './components/teamMemberFind/CompleteContainer';
 import NotFound from './pages/NotFound';
+import { HiddenStoreProvider } from './components/teamMemberFind/HiddenStore';
 
 function App() {
   const token = useSelector(state => state.user.token);
@@ -35,18 +35,19 @@ function App() {
     <BrowserRouter>
       <GlobalStyle />
       <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/findTeamMember' element={<FindTeamMember />} />
-        <Route path='/chat' element={<Chat />} />
-        <Route path='/project' element={<ProjectPage />} />
-        <Route path='/profileChange' element={<ProfileChange />} />
-        <Route path='/teammemberfind' element={<TeamMemberFind />} />
-        <Route path='/teammemberfind/2' element={<FindTwoContainer />} />
-        <Route path='/teammemberfind/3' element={<CompleteConatainer />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <HiddenStoreProvider>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/findTeamMember' element={<FindTeamMember />} />
+          <Route path='/chat' element={<Chat />} />
+          <Route path='/project' element={<ProjectPage />} />
+          <Route path='/profileChange' element={<ProfileChange />} />
+          <Route path='/teammemberfind' element={<TeamMemberFind />} />
+          <Route path='/teammemberfind/2' element={<CompleteConatainer />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </HiddenStoreProvider>
       <Footer />
     </BrowserRouter>
   );
