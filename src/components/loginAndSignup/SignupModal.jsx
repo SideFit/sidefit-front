@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { MdClose, MdErrorOutline } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import * as yup from 'yup';
+import { ImEye, ImEyeBlocked } from 'react-icons/im';
 import { loginUserByEmail, setErrorEmpty } from '../../redux/slices/usersSlice';
 import COLOR from '../../constants/color';
+import checkImage from '../../images/check_white.png';
 
 const SignupModalBox = styled.div`
   width: 512px;
   height: ${props => {
-    if (props.errorType === 2) {
+    if (props.errortype === 2) {
       return '528px';
     }
-    if (props.errorType === 1 || props.errorMsg) {
+    if (props.errortype === 1 || props.errorMsg) {
       return '500px';
     }
     return '472px';
@@ -42,10 +43,10 @@ const CloseIcon = styled(MdClose).attrs({
 const SignupModalWrapper = styled.div`
   width: 400px;
   height: ${props => {
-    if (props.errorType === 2) {
+    if (props.errortype === 2) {
       return '432px';
     }
-    if (props.errorType === 1 || props.errorMsg) {
+    if (props.errortype === 1 || props.errorMsg) {
       return '404px';
     }
     return '376px';
@@ -62,10 +63,10 @@ const FormCustom = styled.form`
   justify-content: space-between;
   /* border: 1px solid orange; */
   height: ${props => {
-    if (props.errorType === 2) {
+    if (props.errortype === 2) {
       return '368px';
     }
-    if (props.errorType === 1 || props.errorMsg) {
+    if (props.errortype === 1 || props.errorMsg) {
       return '340px';
     }
     return '312px';
@@ -84,10 +85,10 @@ const FormCustom = styled.form`
 const InputWrapper = styled.div`
   width: 100%;
   height: ${props => {
-    if (props.errorType === 2) {
+    if (props.errortype === 2) {
       return '280px';
     }
-    if (props.errorType === 1 || props.errorMsg) {
+    if (props.errortype === 1 || props.errorMsg) {
       return '252px';
     }
     return '224px';
@@ -99,7 +100,7 @@ const InputWrapper = styled.div`
 const CustomInput = styled.div`
   width: 400px;
   height: ${props => {
-    if (props.errorType || props.errorMsg) {
+    if (props.errortype || props.errorMsg) {
       return '104px';
     }
     return '76px';
@@ -131,7 +132,7 @@ const CustomInput = styled.div`
       border: 1px solid ${COLOR.TEXT_HIGHLIGHT};
     }
     ${props => {
-      if (props.errorType || props.errorMsg) {
+      if (props.errortype || props.errorMsg) {
         return `border: 1px solid ${COLOR.ERROR_PINK};`;
       }
       return 'border: none';
@@ -179,7 +180,7 @@ const NextButton = styled.button`
   line-height: 24px;
   letter-spacing: 0.7px;
   color: ${props =>
-    props.disabled ? `${COLOR.TEXT_DISABLED}` : `${COLOR.WHITE}`};
+    props.disabled ? `${COLOR.TEXT_HIGH_EMPHASIS}` : `${COLOR.WHITE}`};
   border: none;
   display: flex;
   justify-content: center;
@@ -192,8 +193,10 @@ const NextButton = styled.button`
     }
   }
   &:active {
-    position: relative;
-    top: 2px;
+    &:not([disabled]) {
+      position: relative;
+      top: 2px;
+    }
   }
 `;
 
@@ -224,30 +227,48 @@ const BottomOptionsBox = styled.div`
 `;
 
 const MaintainLoginBox = styled.div`
-  width: 200px;
+  width: 230px;
   height: 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  line-height: 24px;
   label {
+    position: relative;
     font-weight: 400;
     font-size: 14px;
     letter-spacing: 0.25px;
     color: ${COLOR.TEXT_MEDIUM_EMPHASIS};
+    /* border: 1px solid red; */
+    height: 24px;
+    left: 32px;
   }
   input {
     display: none;
   }
   label::before {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border: 2px solid ${COLOR.TEXT_MEDIUM_EMPHASIS};
+    content: '';
+    display: inline-block;
+    border-radius: 4px;
+    position: absolute;
+    top: 3px;
+    left: -32px;
   }
-  input:checked + label::after {
-    content: '✔';
-    font-size: 15px;
-    width: 15px;
-    height: 15px;
+  input:checked + label::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: none;
+    background: ${COLOR.POINT_BLUE};
+    background-image: url(${checkImage});
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 3px;
+    left: -32px;
   }
 `;
 
@@ -265,7 +286,8 @@ const OptionsBox = styled.div`
       content: '';
       width: 0px;
       height: 14px;
-      border: 2px solid rgba(255, 255, 255, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 6px;
       margin-right: 8px;
     }
   }
@@ -319,24 +341,24 @@ function SignupModal({ close, setModalIndex }) {
   }, [token]);
 
   return (
-    <SignupModalBox errorType={Object.keys(errors).length} errorMsg={errorMsg}>
+    <SignupModalBox errortype={Object.keys(errors).length} errorMsg={errorMsg}>
       <CloseIcon onClick={close} />
       <SignupModalWrapper
-        errorType={Object.keys(errors).length}
+        errortype={Object.keys(errors).length}
         errorMsg={errorMsg}
       >
         <FormCustom
           onSubmit={handleSubmit(onSubmit, onError)}
-          errorType={Object.keys(errors).length}
+          errortype={Object.keys(errors).length}
           errorMsg={errorMsg}
         >
           <InputWrapper
-            errorType={Object.keys(errors).length}
+            errortype={Object.keys(errors).length}
             errorMsg={errorMsg}
           >
             <h3>이메일로 로그인</h3>
             <CustomInput
-              errorType={errors.email}
+              errortype={errors.email}
               errorMsg={errorMsg === 'Cannot find user'}
             >
               <label htmlFor='email'>이메일</label>
@@ -348,7 +370,7 @@ function SignupModal({ close, setModalIndex }) {
                   dispatch(setErrorEmpty());
                 }}
                 placeholder='이메일 주소를 입력해 주세요.'
-                emailError={errors.email}
+                emailerror={errors.email}
                 {...register('email', { required: true })}
               />
               {errors.email && (
@@ -365,7 +387,7 @@ function SignupModal({ close, setModalIndex }) {
               )}
             </CustomInput>
             <CustomInput
-              errorType={errors.password}
+              errortype={errors.password}
               errorMsg={errorMsg === 'Incorrect password'}
             >
               <label htmlFor='password'>비밀번호</label>
@@ -377,7 +399,7 @@ function SignupModal({ close, setModalIndex }) {
                 onFocus={() => {
                   dispatch(setErrorEmpty());
                 }}
-                passwordError={errors.password}
+                passworderror={errors.password}
                 {...register('password', { required: true })}
               />
               {showPassword ? (
@@ -404,7 +426,7 @@ function SignupModal({ close, setModalIndex }) {
         <BottomOptionsBox>
           <MaintainLoginBox>
             <input type='checkbox' id='maintainLogin' name='maintainLogin' />
-            <label htmlFor='maintainLogin'>로그인 상태 유지 </label>
+            <label htmlFor='maintainLogin'>로그인 상태 유지</label>
           </MaintainLoginBox>
           <OptionsBox>
             <span>비밀번호 찾기</span>

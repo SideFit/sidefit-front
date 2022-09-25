@@ -136,7 +136,7 @@ function ProjectCard({ imageUrl, title, type, field, hashtag, createdDate }) {
         <p>
           {field} · {timeForToday(createdDate)}
         </p>
-        <p>{hashtag.join(' ')}</p>
+        <p>{hashtag}</p>
         <RecruitmentStatusAndBookmark>
           <p>
             모집완료 <span>1/2</span>
@@ -155,9 +155,9 @@ function ProjectCard({ imageUrl, title, type, field, hashtag, createdDate }) {
 ProjectCard.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.number.isRequired,
   field: PropTypes.string.isRequired,
-  hashtag: PropTypes.arrayOf(PropTypes.string).isRequired,
+  hashtag: PropTypes.string.isRequired,
   createdDate: PropTypes.string.isRequired,
 };
 

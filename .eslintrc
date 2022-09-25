@@ -10,6 +10,7 @@
       "react/jsx-uses-vars": "error",
       "prettier/prettier": ["error", { "endOfLine": "auto" }],
       "react/jsx-props-no-spreading": "off",
+      "treatUndefinedAsUnspecified": 0,
       "no-param-reassign": "off",
       "jsx-a11y/label-has-associated-control": ["error", {
         "required": {
@@ -20,5 +21,6 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser",
       "ecmaVersion": "latest"
+      
     }
   }

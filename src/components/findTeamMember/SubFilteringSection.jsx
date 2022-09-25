@@ -8,14 +8,17 @@ const SubFilteringSectionContainer = styled.section`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 300px;
+  height: 150px;
+  border: 1px solid red;
 `;
 
 const SubFilteringSectionWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-content: space-evenly;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid red;
+  width: 433px;
+  height: 36px;
 `;
 
 function SubFilteringSection() {

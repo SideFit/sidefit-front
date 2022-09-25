@@ -14,6 +14,7 @@ import ModalContainer from '../loginAndSignup/LoginSignupModalContainer';
 import LogoutModalContainer from '../loginAndSignup/LogoutModalContainer';
 import COLOR from '../../constants/color';
 import { connecting } from '../../redux/slices/projectSlice';
+import SearchBarOption from './SearchBarOption';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -40,11 +41,13 @@ const HeaderNavigation = styled.div`
 
 const HeaderAside = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  width: 350px;
-  margin-right: 32px;
+  width: fit-content;
+  height: 36px;
   /* border: 1px solid orange; */
+  margin-right: 32px;
+  position: relative;
 `;
 
 const HeaderLogo = styled.img.attrs({
@@ -90,31 +93,58 @@ const HeaderItem = styled.li`
 `;
 
 const HeaderSearchBarContainer = styled.div`
-  width: 200px;
-  height: 35px;
+  width: ${props => (props.searchOption ? '452px' : '200px')};
+  height: 36px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  background: black;
-  border-radius: 5px;
+  background: #000000;
+  border-radius: 4px;
+  border: ${props =>
+    props.searchOption ? `1px solid ${COLOR.TEXT_HIGHLIGHT}` : 'none'};
+  transition: width linear 0.2s;
+`;
+
+const SearchIcon = styled(FiSearch)`
+  color: ${COLOR.TEXT_MEDIUM_EMPHASIS};
+  font-size: 20px;
+  /* border: 1px solid red; */
+  margin-left: 12px;
 `;
 const HeaderSearchBar = styled.input.attrs({
   placeholder: '프로젝트 검색',
 })`
-  width: 150px;
-  height: 35px;
+  width: ${props => (props.searchOption ? '395px' : '145px')};
+  transition: width linear 0.2s;
+  height: 24px;
   background: transparent;
   color: white;
   border: none;
   font-size: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.7px;
+  color: ${COLOR.TEXT_MEDIUM_EMPHASIS};
+  /* border: 1px solid red; */
+  padding: 0;
+  margin-left: 8px;
 `;
 
 const LoginButton = styled.button`
-  border: 1px solid grey;
-  width: 100px;
-  height: 35px;
-  color: white;
-  background: black;
+  width: fit-content;
+  height: 26px;
+  color: ${COLOR.WHITE};
+  background: transparent;
+  /* border: 1px solid red; */
+  border: none;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: ${COLOR.WHITE};
+  margin-left: 32px;
 `;
 
 const AfterLoginHeaderAside = styled.div`
@@ -148,6 +178,7 @@ function Header() {
   const [viewInform, setViewInform] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSearchOption, setShowSearchOption] = useState(false);
   const [, , removeCookies] = useCookies(['accessToken']);
 
   const pathName = useLocation().pathname;
@@ -198,6 +229,11 @@ function Header() {
     dispatch(setToken(null));
     setVisible(false);
     setViewInform(false);
+  };
+
+  const toggleSearchBarOption = () => {
+    setShowSearchOption(prev => !prev);
+    console.log(showSearchOption);
   };
   return (
     <HeaderContainer>
@@ -258,11 +294,16 @@ function Header() {
         </AfterLoginHeaderAside>
       ) : (
         <HeaderAside>
-          <HeaderSearchBarContainer>
-            <FiSearch size={20} />
-            <HeaderSearchBar />
+          <HeaderSearchBarContainer searchOption={showSearchOption}>
+            <SearchIcon />
+            <HeaderSearchBar
+              searchOption={showSearchOption}
+              onFocus={toggleSearchBarOption}
+              onBlur={toggleSearchBarOption}
+            />
           </HeaderSearchBarContainer>
-          <LoginButton onClick={openModal}>로그인</LoginButton>
+          <SearchBarOption searchOption={showSearchOption} />
+          <LoginButton onClick={openModal}>로그인/회원가입</LoginButton>
         </HeaderAside>
       )}
       {modalOpen && (
