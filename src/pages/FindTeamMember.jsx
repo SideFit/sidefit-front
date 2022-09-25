@@ -15,7 +15,9 @@ const MainContainer = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1200px;
+  width: 1199px;
+  height: fit-content;
+  padding-top: 60px;
 `;
 
 function FindTeamMember() {

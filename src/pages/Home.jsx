@@ -12,7 +12,7 @@ const HomeContainer = styled.div`
 `;
 
 const MainContainer = styled.main`
-  width: 1200px;
+  width: 1199px;
   display: flex;
   flex-direction: column;
   justify-content: center;
