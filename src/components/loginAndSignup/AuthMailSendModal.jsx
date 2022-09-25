@@ -1,22 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
+import PropTypes from 'prop-types';
 import COLOR from '../../constants/color';
 
 const AuthMailSendModalBox = styled.div`
   width: 512px;
-  height: 332px;
+  height: 272px;
   background: ${COLOR.BACKGROUND_NAVY};
   border-radius: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-right: 38px;
 `;
 
 const AuthMailSendModalWrapper = styled.div`
   width: 400px;
-  height: 236px;
+  height: 176px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,6 +32,7 @@ const CloseIcon = styled(MdClose).attrs({
   top: 21px;
   right: 21px;
   color: ${COLOR.TEXT_MEDIUM_EMPHASIS};
+  cursor: pointer;
 `;
 
 const TitleAndTextBox = styled.div`
@@ -56,7 +59,7 @@ const TitleAndTextBox = styled.div`
   }
 `;
 
-const CompleteButton = styled.button`
+const ResendEmailLink = styled.button`
   width: 400px;
   height: 48px;
   background: ${COLOR.POINT_BLUE};
@@ -66,33 +69,36 @@ const CompleteButton = styled.button`
   font-size: 15px;
   letter-spacing: 0.5px;
   color: ${COLOR.WHITE};
+  &:hover,
+  &:active {
+    background: #448aff;
+  }
+  &:active {
+    position: relative;
+    top: 2px;
+  }
 `;
 
-const ResendEmailLink = styled.p`
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.25px;
-  color: ${COLOR.TEXT_HIGHLIGHT};
-`;
-
-function AuthMailSendModal() {
+function AuthMailSendModal({ close }) {
   return (
     <AuthMailSendModalBox>
-      <CloseIcon />
+      <CloseIcon onClick={close} />
       <AuthMailSendModalWrapper>
         <TitleAndTextBox>
           <h3>인증 메일 전송 완료!</h3>
           <p>
             입력해주신 메일로 인증 메일을 전송했어요. <br /> 전송된 메일에서
-            링크를 클릭하면 회원가입이 완료됩니다.
+            링크를 클릭하고 가입절차를 진행해주세요.
           </p>
         </TitleAndTextBox>
-        <CompleteButton>완료</CompleteButton>
         <ResendEmailLink>이메일 재전송</ResendEmailLink>
       </AuthMailSendModalWrapper>
     </AuthMailSendModalBox>
   );
 }
+
+AuthMailSendModal.propTypes = {
+  close: PropTypes.func.isRequired,
+};
 
 export default AuthMailSendModal;
