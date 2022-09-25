@@ -9,6 +9,7 @@ const SelectedBtn = styled.button`
   color: #fff;
   font-size: 14px;
   line-height: 44px;
+  border-radius: 4px;
   &:hover {
     background: #d12771;
   }

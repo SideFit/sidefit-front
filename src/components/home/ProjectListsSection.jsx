@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import FilteringDropdown from './FilteringDropdown';
 import ProjectCard from './ProjectCard';
-import { fetchProjectLists } from '../../redux/slices/projectSlice';
+import { fetchProjectListsByOptions } from '../../redux/slices/projectSlice';
 
 const ProjectListsSectionContainer = styled.section`
   width: 100%;
@@ -40,11 +40,18 @@ const ProjectCardContainer = styled.article`
 function ProjectListsSection() {
   const dispatch = useDispatch();
   const selector = useSelector(state => state.project.projectLists);
+  const [optionsList] = useState({
+    jobGroups: [],
+    fields: [],
+    periods: [],
+    types: [],
+  });
 
   useEffect(() => {
-    dispatch(fetchProjectLists());
-    return () => dispatch(fetchProjectLists());
+    dispatch(fetchProjectListsByOptions(optionsList));
+    return () => dispatch(fetchProjectListsByOptions(optionsList));
   }, []);
+
   return (
     <ProjectListsSectionContainer>
       <ProjectListsTop>
@@ -59,11 +66,11 @@ function ProjectListsSection() {
             <ProjectCard
               key={data.id}
               type={data.type}
-              imageUrl={data.image_url}
+              imageUrl={data.imageUrl}
               title={data.title}
               field={data.field}
               hashtag={data.hashtag}
-              createdDate={data.created_date}
+              createdDate={data.createdDate}
             />
           ))}
       </ProjectCardContainer>

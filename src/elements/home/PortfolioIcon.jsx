@@ -17,11 +17,17 @@ const PortfolioIconBox = styled.div`
 `;
 
 function PortfolioIcon({ type }) {
-  return <PortfolioIconBox>{type}</PortfolioIconBox>;
+  return (
+    <PortfolioIconBox>
+      {type === 0 && '출시 목적'}
+      {type === 1 && '포트폴리오'}
+      {type === 2 && '토이프로젝트'}
+    </PortfolioIconBox>
+  );
 }
 
 PortfolioIcon.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.number.isRequired,
 };
 
 export default PortfolioIcon;
