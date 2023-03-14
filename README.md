@@ -12,7 +12,7 @@
 
 </br>
 
-<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/ca88ce39-6afb-4e09-a395-226ae5a44875/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230312T172000Z&X-Amz-Expires=86400&X-Amz-Signature=a2d2542fe6afa67359cd3a0d6936d495b9ad642a8fae77d4ca78dbba62c4f935&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject" alt="홈화면"  />
+<img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/ca88ce39-6afb-4e09-a395-226ae5a44875/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230314%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230314T151238Z&X-Amz-Expires=86400&X-Amz-Signature=1078feff2bd87e7a3fdcebcdb20c861fe73780b6e9eaa45b0defea02f0a7f39f&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22Untitled.png%22&x-id=GetObject" alt="홈화면"  />
 
 ### 사용 기술 및 라이브러리
 - 언어 : Javascript
